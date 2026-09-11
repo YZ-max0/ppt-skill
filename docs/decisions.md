@@ -307,3 +307,29 @@ T-03 出现 6 项误报（噪声率 11% > 阈值 3）→ **观察状态结束，
 
 - commit 1：`feat(m1): layout assets v1 + T-03 director-mode e2e report`（v1/ + e2e-02-report.md + windows-notes）
 - commit 2：`chore(governance): E2E2 decisions + cards`（decisions + T-E2E2 + T-FIX3）
+
+## 2026-09-11 · T-FIX3 复核与 M2 启动
+
+### 复核结论
+
+- `classify_subtier`：seq 判定显式限定 ASCII（修复 `'风险'.isalpha()` 陷阱）、阈值常量清晰、只在 bucket 内切分不跨档（不会制造/隐藏跨档误报）✅
+- 靶场 T-03 6→0；历史回归 10/10；真阳性矩阵 3/3（seq/short/long 各一）✅
+- 止损条款未触发 → 特征方案保留 ✅；CONTRACT 第 7 条（层级字号差 ≥6pt）落地 ✅
+- commit 链（4bb87b6/29b57bc/f9cb260）干净 ✅
+
+### "第三类误报"定义明确化（采纳建议 2）
+
+> 止损条款中的"第三类误报" = 误报项不属于 `text@*/{seq,short,long}` 任一形态，**或**涉及占位符路径。
+> 用于下次复查的可判定标准。
+
+### 建议处置
+
+1. subtier 阈值（SHORT_MAX_VW=5.0 / SEQ_MAX_LEN=4）→ **暂不参数化**，更多真实 deck 采样后再定
+2. 期望值 vs 修复目标分开记录 → backlog（回归脚本规范化）
+3. **M1 质检链路终局关闭**：D-2 全部缺陷（wrap 假 P0 / tier 假 P1 / 同页门槛 / subtier 混角色）四连关闭
+
+### M2A 发布（M2 开门）
+
+`tasks/T-M2A.md`：视觉验证能力建设——渲染器探针（PowerPoint COM / LibreOffice）→ 渲染 3 份现有产物 →
+脚本化 `deltas/render-preview/`。**理由：至今所有验收都是结构级，从未渲染过一页真实视觉**——
+"效果更好"的用户目标必须在视觉层验证。
