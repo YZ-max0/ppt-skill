@@ -77,12 +77,30 @@ def first_para_text(shape) -> str:
 
 def diagnose(shape, slide_index, size_pt, capacity, text, wrap, autofit,
              tolerance: float = TOLERANCE):
-    """Return a dict describing one text shape's fit diagnosis."""
+    """Return a dict describing one text shape's fit diagnosis.
+
+    The judgment axis follows the frame's wrap behavior; mixing them was the
+    original false-P0 defect:
+
+    * ``wrap=True``  — **vertical axis**: text folds, so the folded line demand
+      is compared with the box's line budget (``demand / max_lines``).
+    * ``wrap=False`` — **horizontal axis**: text never folds, so the line budget
+      is meaningless. The longest single segment's visual width is compared with
+      the per-line width budget (``longest_vw / cpl``). A non-wrapping label
+      whose width exceeds the box is reported as horizontal overflow.
+    """
     cpl, max_lines, capacity_vw = capacity
     segs = text.split("\n") or [text]
-    # demand measured against the *raw* capacity (pre-tolerance)
-    demand = sum(max(1, math.ceil(vw_of(seg) / cpl)) for seg in segs)
-    usage = demand / max_lines if max_lines else float("inf")
+
+    if wrap:
+        axis = "vertical"
+        demand = sum(max(1, math.ceil(vw_of(seg) / cpl)) for seg in segs)
+        usage = demand / max_lines if max_lines else float("inf")
+    else:
+        axis = "horizontal"
+        longest_vw = max((vw_of(seg) for seg in segs), default=0.0)
+        demand = 1  # a non-wrapping frame occupies exactly one visual line
+        usage = longest_vw / cpl if cpl else float("inf")
 
     # ---- decide severity ----
     if autofit:
@@ -94,12 +112,18 @@ def diagnose(shape, slide_index, size_pt, capacity, text, wrap, autofit,
             severity, code = "OK", "fits"
             note = ""
         elif usage <= tolerance:
-            # within the 20% slack: fits by the model, but flag for a human look
             severity, code = "P1", "tight"
-            note = "within model slack but worth a visual check"
+            note = ("within model slack but worth a visual check"
+                    if axis == "vertical"
+                    else "horizontal width within model slack; worth a visual check")
         else:
-            severity, code = "P0", "overflow"
-            note = "exceeds box capacity by >20%; expected to overflow"
+            if axis == "vertical":
+                severity, code = "P0", "overflow"
+                note = "exceeds box capacity by >20%; expected to overflow"
+            else:
+                severity, code = "P0", "overflow_horizontal"
+                note = ("single-line width exceeds the box width by >20%; "
+                        "expected horizontal overflow")
 
     # paragraph summary (first 24 chars, single line)
     one_line = text.replace("\n", " ")
@@ -127,18 +151,30 @@ def diagnose(shape, slide_index, size_pt, capacity, text, wrap, autofit,
         "autofit": autofit,
         "cpl": cpl,
         "max_lines": max_lines,
+        "axis": axis,
         "demand_lines": demand,
         "usage": round(usage, 2) if math.isfinite(usage) else None,
-        "remedy": remedy_hint(usage, autofit),
+        "remedy": remedy_hint(usage, autofit, axis),
     }
 
 
-def remedy_hint(usage, autofit):
-    """Advisory remedy ladder (copy only; no pixel measurement)."""
+def remedy_hint(usage, autofit, axis="vertical"):
+    """Advisory remedy ladder (copy only; no pixel measurement).
+
+    ``wrap=False`` frames overflow horizontally, so the vertical-ish remedies
+    ("compress line spacing / wrap control") do not apply; shorten the label or
+    widen the slot instead.
+    """
     if autofit:
         return "PowerPoint auto-shrink is enabled; confirm visual result"
     if usage <= 1.0:
         return ""
+    if axis == "horizontal":
+        if usage <= 1.2:
+            return "建议缩短标签或微调槽位宽度（≤40px 量级）"
+        if usage <= 1.6:
+            return "建议缩短标签文字（40-90px 量级）"
+        return "建议换更宽的槽位或大幅缩短文字（>90px 量级）"
     if usage <= 1.2:
         return "建议删减字数或微调（≤40px 量级）"
     if usage <= 1.6:
@@ -193,7 +229,15 @@ def run_detect(pptx_path: Path, tolerance: float = TOLERANCE):
                 pass
             autofit = False
             try:
-                autofit = tf.auto_size == MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
+                # Two auto-size modes both remove genuine overflow risk:
+                #   TEXT_TO_FIT_SHAPE -> PowerPoint shrinks the text to the box
+                #   SHAPE_TO_FIT_TEXT -> the box itself grows to the text, so the
+                #     measured box geometry IS the text extent and cannot overflow
+                # (the latter is what SVG -> PPTX emits for grouped <text>).
+                autofit = tf.auto_size in (
+                    MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE,
+                    MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT,
+                )
             except Exception:
                 pass
 
@@ -258,15 +302,21 @@ def main(argv=None):
             print(text)
     else:
         for d in diagnoses:
+            if d.get("axis") == "horizontal":
+                measure = f"水平: 最长段宽度比 {d['usage']} (每行容量 {d['cpl']} 字当量)"
+            else:
+                measure = (f"垂直: 需求 {d['demand_lines']} 行 / 容量 "
+                           f"{d['max_lines']} 行")
             line = (
                 f"[{d['severity']}] 页{d['slide']} 形状:{d['summary']} | "
-                f"需求 {d['demand_lines']} 行，容量 {d['max_lines']} 行 "
-                f"(cpl={d['cpl']}, {d['font_size_pt']}pt)"
+                f"{measure} ({d['font_size_pt']}pt)"
             )
             if d["code"] == "autofit":
                 line += f" | autofit 软放行: {d['note']}"
             elif d["code"] == "overflow":
                 line += f" | 超出容量 >20% (usage={d['usage']})"
+            elif d["code"] == "overflow_horizontal":
+                line += f" | 水平超宽 >20% (usage={d['usage']})"
             elif d["code"] == "tight":
                 line += f" | 接近上限 (usage={d['usage']})"
             if d.get("remedy"):

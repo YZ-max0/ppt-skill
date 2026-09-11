@@ -184,7 +184,25 @@ def resolve_size_pt(shape, paragraph, slide, role=""):
 
 
 def capacity_for(width_cm, height_cm, size_pt, wrap):
-    """Return (cpl, max_lines, capacity_vw) raw geometry budget."""
+    """Return (cpl, max_lines, capacity_vw) raw geometry budget.
+
+    The two wrap modes expose different usable budgets, and the caller must use
+    the matching judgment axis:
+
+    ``wrap=True`` — text folds inside the box, so both the per-line visual-width
+    budget (``cpl``) and the line budget (``max_lines``) bound the content.
+    Compare the folded line demand against ``max_lines``.
+
+    ``wrap=False`` — the frame never folds, so ``max_lines`` is 1 by definition
+    and the line budget carries no information. Callers MUST judge a
+    non-wrapping frame **horizontally**: compare the longest single segment's
+    visual width against ``cpl``. Applying the line-count test here yields a
+    constant ``usage >= 2.0`` for any multi-character label and produced
+    systematic false P0 (see detect_overflow.diagnose).
+
+    ``capacity_vw`` is the raw (pre-tolerance) area budget ``cpl * max_lines``;
+    it is meaningful for ``wrap=True`` only.
+    """
     usable_w_pt = max(0.0, (width_cm - H_INSET_CM)) * PT_PER_CM
     usable_h_pt = max(0.0, (height_cm - V_INSET_CM)) * PT_PER_CM
     if size_pt <= 0:
