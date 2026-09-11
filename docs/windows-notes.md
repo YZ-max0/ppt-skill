@@ -65,3 +65,56 @@ python 'D:\...\vendor-ppt-master\scripts\svg_to_pptx.py' 'C:\...\proj'
 
 > 补充：`batch_validate.py` 期望**父目录**（扫描其下项目）；传单个项目目录会报
 > "No projects found"，且该 `[ERROR]` 的退出码仍是 0 —— 自动化不能只靠退出码判定失败。
+
+## W-5 · 手写 SVG 契约速查（quick / free-design 路径）
+
+来源：M1 端到端首跑（`docs/e2e-01-report.md` C-001/C-003）。首轮质量检查 6/6 全部 blocking，
+补齐以下四条后一次通过。**建议在写第一页 SVG 前就按这四条做**，可把修正循环从 ~8 分钟压到 1-2 分钟。
+
+**① 每个根级 `<g>` 必须声明 `data-pptx-bounds`**
+
+```xml
+<g id="page-title" data-pptx-bounds="80 50 1120 80"> ... </g>
+```
+
+缺失会报 blocking：`Detected N visible root-level <g> module(s) without explicit data-pptx-bounds`。
+导出器用该边界做模块定位与溢出诊断，因此它必须**真实包住组内所有可见内容**。
+
+**② 整页背景单独成组，不要裸放 `<rect>`**
+
+```xml
+<g id="page-bg" data-pptx-bounds="0 0 1280 720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+</g>
+```
+
+裸放会报 `ungrouped top-level Slide-local element(s)`；规则是"只把逻辑内容单元放进根级 `<g id>`"。
+
+**③ 多行文本用单个 `<text>` + 多个 `<tspan>`，不要用同级多个 `<text>`**
+
+```xml
+<text x="120" y="475" font-size="16" fill="#737373"><tspan x="120" dy="0">第一行</tspan><tspan x="120" dy="25">第二行</tspan></text>
+```
+
+同级多个 `<text>` 会被识别为"段落式换行被拆成兄弟 text"，报
+`paragraph-like line run(s) split across sibling <text> elements`。
+保持单个 `<text>` 后，导出器统一按段落处理，字号/颜色也只需写一次。
+
+**④ bounds 坐标直接取 checker 报出的 `content (...)`**
+
+若 bounds 比实际内容高或低几个像素，会报
+`exceeds <g id="..."> data-pptx-bounds on the vertical axis: ... overflow vertical 3.1%`，
+并**直接给出精确的内容框**，例如：
+
+```text
+<text> (x=120, y=300; text='本周工作汇报') exceeds <g id="cover-title"> data-pptx-bounds
+on the vertical axis: content (120.0, 245.6)-(504.0, 322.4), container (120.0, 250.0)-(1160.0, 390.0)
+```
+
+> 直接把这组 `content` 坐标（可外扩 2-4px 余量）回填 bounds 即可，不用逐轮估算试探。
+
+**⑤ 观察：多行 `<tspan>` 导出后读回无换行符**
+
+导出日志会出现 `Lowered positional <tspan> using preserve text flow`。
+用 python-pptx 读回时，多行内容**不带换行符**（例如"内部"+"联调"会读成"内部联调"）。
+PowerPoint 内显示正常，但**下游若做纯文本解析/比对需自行按 tspan 边界处理**，不要假定有 `\n`。
