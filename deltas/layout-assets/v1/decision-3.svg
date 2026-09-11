@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#0A0A0A"/>
+  </g>
+  <g id="decision-title" data-pptx-bounds="120 90 1040 150">
+    <text x="120" y="170" font-size="40" font-weight="700" fill="#FFFFFF">【页面标题】请求批准一期立项与预算</text>
+    <rect x="120" y="200" width="120" height="6" fill="#002FA7"/>
+  </g>
+  <g id="decision-items" data-pptx-bounds="120 280 1040 300">
+    <text x="120" y="350" font-size="28" font-weight="700" fill="#FFFFFF">01</text>
+    <text x="200" y="350" font-size="24" fill="#FFFFFF">【请求一】批准一期预算八十万</text>
+    <text x="120" y="440" font-size="28" font-weight="700" fill="#FFFFFF">02</text>
+    <text x="200" y="440" font-size="24" fill="#FFFFFF">【请求二】确认两个试点部门</text>
+    <text x="120" y="530" font-size="28" font-weight="700" fill="#FFFFFF">03</text>
+    <text x="200" y="530" font-size="24" fill="#FFFFFF">【请求三】授权本月内启动实施</text>
+  </g>
+  <g id="decision-note" data-pptx-bounds="120 610 1040 80">
+    <text x="120" y="655" font-size="18" fill="#737373">【补充说明】三项确认后一周内可提交详细实施计划</text>
+  </g>
+</svg>

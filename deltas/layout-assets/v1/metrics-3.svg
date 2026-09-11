@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】验收以可测量的三项指标为准</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="metrics-list" data-pptx-bounds="80 175 1120 430">
+    <rect x="80" y="175" width="1120" height="130" fill="#F0F0EE"/>
+    <text x="115" y="240" font-size="24" font-weight="700" fill="#002FA7">【指标一名称】检索响应时间</text>
+    <text x="115" y="282" font-size="18" fill="#0A0A0A">【指标一判定】返回结果在秒级内完成，不出现等待超时</text>
+    <rect x="80" y="325" width="1120" height="130" fill="#FFFFFF"/>
+    <text x="115" y="390" font-size="24" font-weight="700" fill="#002FA7">【指标二名称】权限规则准确率</text>
+    <text x="115" y="432" font-size="18" fill="#0A0A0A">【指标二判定】人工抽查权限配置结果全部正确，无越权可见</text>
+    <rect x="80" y="475" width="1120" height="130" fill="#F0F0EE"/>
+    <text x="115" y="540" font-size="24" font-weight="700" fill="#002FA7">【指标三名称】试点部门使用率</text>
+    <text x="115" y="582" font-size="18" fill="#0A0A0A">【指标三判定】试点部门每周活跃使用达到约定水平</text>
+  </g>
+</svg>

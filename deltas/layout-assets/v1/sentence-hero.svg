@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="ending" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="24" height="720" fill="#002FA7"/>
+  </g>
+  <g id="hero-sentence" data-pptx-bounds="120 220 1040 160">
+    <text x="120" y="310" font-size="56" font-weight="700" fill="#0A0A0A">【核心主张句】让知识不再依赖个人记忆</text>
+    <rect x="120" y="350" width="120" height="4" fill="#002FA7"/>
+  </g>
+  <g id="hero-detail" data-pptx-bounds="120 420 1040 160">
+    <text x="120" y="480" font-size="20" fill="#737373"><tspan x="120" dy="0">【收束文本】一期解决找得到与管得住两个基础问题，</tspan><tspan x="120" dy="34">二期再讨论智能化检索与知识推荐的提升方向。</tspan></text>
+  </g>
+</svg>

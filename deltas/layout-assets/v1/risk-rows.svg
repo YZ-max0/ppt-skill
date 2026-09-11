@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】三项主要风险已有应对</text>
+    <rect x="80" y="112" width="80" height="4" fill="#FF6B35"/>
+  </g>
+  <g id="risk-list" data-pptx-bounds="80 165 1120 450">
+    <rect x="80" y="165" width="1120" height="140" fill="#F0F0EE"/>
+    <rect x="80" y="165" width="6" height="140" fill="#FF6B35"/>
+    <text x="115" y="222" font-size="20" font-weight="600" fill="#FF6B35">【风险一】部门参与度不足</text>
+    <text x="115" y="268" font-size="18" fill="#0A0A0A">【对策一】纳入季度考核指标，与部门评价挂钩</text>
+    <rect x="80" y="315" width="1120" height="140" fill="#FFFFFF"/>
+    <rect x="80" y="315" width="6" height="140" fill="#FF6B35"/>
+    <text x="115" y="372" font-size="20" font-weight="600" fill="#FF6B35">【风险二】历史内容迁移量过大</text>
+    <text x="115" y="418" font-size="18" fill="#0A0A0A">【对策二】只迁移近两年高频使用的资料，分期推进</text>
+    <rect x="80" y="465" width="1120" height="140" fill="#F0F0EE"/>
+    <rect x="80" y="465" width="6" height="140" fill="#FF6B35"/>
+    <text x="115" y="522" font-size="20" font-weight="600" fill="#FF6B35">【风险三】上线后使用率偏低</text>
+    <text x="115" y="568" font-size="18" fill="#0A0A0A">【对策三】试点期安排专人答疑并定期通报使用情况</text>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】需求方提出三项核心诉求</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="card-row" data-pptx-bounds="80 190 1120 400">
+    <rect x="80" y="190" width="353" height="400" fill="#F0F0EE"/>
+    <rect x="80" y="190" width="353" height="6" fill="#002FA7"/>
+    <text x="110" y="270" font-size="28" font-weight="700" fill="#002FA7">01</text>
+    <text x="110" y="325" font-size="22" font-weight="700" fill="#0A0A0A">【卡片一标题】快速找到</text>
+    <text x="110" y="380" font-size="16" fill="#737373"><tspan x="110" dy="0">【卡片一说明】统一入口检索，</tspan><tspan x="110" dy="28">结果按更新时间排序，</tspan><tspan x="110" dy="28">无需再向同事询问。</tspan></text>
+    <rect x="463" y="190" width="353" height="400" fill="#F0F0EE"/>
+    <rect x="463" y="190" width="353" height="6" fill="#002FA7"/>
+    <text x="493" y="270" font-size="28" font-weight="700" fill="#002FA7">02</text>
+    <text x="493" y="325" font-size="22" font-weight="700" fill="#0A0A0A">【卡片二标题】控制范围</text>
+    <text x="493" y="380" font-size="16" fill="#737373"><tspan x="493" dy="0">【卡片二说明】按项目与角色授权，</tspan><tspan x="493" dy="28">敏感资料默认不可见，</tspan><tspan x="493" dy="28">共享与安全不再对立。</tspan></text>
+    <rect x="846" y="190" width="354" height="400" fill="#F0F0EE"/>
+    <rect x="846" y="190" width="354" height="6" fill="#002FA7"/>
+    <text x="876" y="270" font-size="28" font-weight="700" fill="#002FA7">03</text>
+    <text x="876" y="325" font-size="22" font-weight="700" fill="#0A0A0A">【卡片三标题】沉淀经验</text>
+    <text x="876" y="380" font-size="16" fill="#737373"><tspan x="876" dy="0">【卡片三说明】项目结项时沉淀</tspan><tspan x="876" dy="28">决策与踩坑记录，</tspan><tspan x="876" dy="28">形成可复用知识资产。</tspan></text>
+  </g>
+</svg>

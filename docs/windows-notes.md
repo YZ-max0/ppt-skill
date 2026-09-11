@@ -118,3 +118,44 @@ on the vertical axis: content (120.0, 245.6)-(504.0, 322.4), container (120.0, 2
 导出日志会出现 `Lowered positional <tspan> using preserve text flow`。
 用 python-pptx 读回时，多行内容**不带换行符**（例如"内部"+"联调"会读成"内部联调"）。
 PowerPoint 内显示正常，但**下游若做纯文本解析/比对需自行按 tspan 边界处理**，不要假定有 `\n`。
+
+## W-6 · `project_manager.py init` 的目录陷阱（T-M1A / T-E2E2 实测）
+
+`powershell -Command "cd '<dir>'; python project_manager.py init foo"` 这种写法下，
+`cd` 与 python 子进程的工作目录传递**不可靠**——项目可能落在**默认 projects 根**
+（本机实测为 `C:\Users\EDY\AppData\Local\Temp\opencode\projects\`），而非 `<dir>`。
+
+现象：命令输出 "Project created: ..." 看起来成功，但 `find <dir>` 找不到项目。
+
+可靠写法（二选一）：
+
+```powershell
+# 方案 A：用 Set-Location（-LiteralPath 应对含空格/中文路径）
+Set-Location -LiteralPath 'D:\...\workdir'
+python 'D:\...\vendor-ppt-master\scripts\project_manager.py' init foo --format ppt169 --quick-generate
+
+# 方案 B：不依赖工作目录，接受默认 projects 根并在该根下继续作业
+python '...\project_manager.py' init foo --format ppt169 --quick-generate
+# 然后用实际输出路径（命令会打印绝对路径）继续后续步骤
+```
+
+**建议**：任何自动化脚本都应从 init 的**输出中解析项目绝对路径**，不要假设它落在预期目录。
+
+## W-7 · 填充后必须断言占位符归零
+
+骨架库（`deltas/layout-assets/`）使用 `【槽位名】` 作占位标记。填充后若漏替换，
+占位符会**原样进入 PPTX**（checker 不报错，因为它只校验几何与语法）。
+
+因此任何自动化填充流程都应包含断言：
+
+```python
+assert '【' not in svg_text, f'{page}: 占位符残留'
+```
+
+并在最终读回验证中检查产物：
+
+```python
+ph_count = sum(t.count('【') for t in all_text_frames)   # 必须 == 0
+```
+
+T-M1A / T-E2E2 两次实测该断言均有效（21 页产物 `【` 计数 = 0）。

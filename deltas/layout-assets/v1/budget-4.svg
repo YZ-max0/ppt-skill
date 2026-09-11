@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】80 万预算拆为四项</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="budget-row" data-pptx-bounds="80 185 1120 300">
+    <text x="80" y="300" font-size="64" font-weight="700" fill="#002FA7">40 万</text>
+    <text x="80" y="355" font-size="20" font-weight="600" fill="#0A0A0A">【项一名称】平台软件与许可</text>
+    <text x="80" y="390" font-size="16" fill="#737373">【项一说明】核心平台采购与许可费用</text>
+    <text x="370" y="300" font-size="64" font-weight="700" fill="#002FA7">20 万</text>
+    <text x="370" y="355" font-size="20" font-weight="600" fill="#0A0A0A">【项二名称】实施与集成</text>
+    <text x="370" y="390" font-size="16" fill="#737373">【项二说明】账号打通与数据迁移工作量</text>
+    <text x="660" y="300" font-size="64" font-weight="700" fill="#002FA7">12 万</text>
+    <text x="660" y="355" font-size="20" font-weight="600" fill="#0A0A0A">【项三名称】硬件与存储</text>
+    <text x="660" y="390" font-size="16" fill="#737373">【项三说明】存储扩容与备份</text>
+    <text x="950" y="300" font-size="64" font-weight="700" fill="#002FA7">8 万</text>
+    <text x="950" y="355" font-size="20" font-weight="600" fill="#0A0A0A">【项四名称】培训与预备金</text>
+    <text x="950" y="390" font-size="16" fill="#737373">【项四说明】培训与预备金</text>
+  </g>
+  <g id="budget-total" data-pptx-bounds="80 505 1120 125">
+    <rect x="80" y="505" width="1120" height="125" fill="#F0F0EE"/>
+    <text x="120" y="560" font-size="22" font-weight="700" fill="#0A0A0A">【合计标题】合计八十万</text>
+    <text x="120" y="600" font-size="18" fill="#737373">【合计说明】一次性投入，不含持续年费与隐性许可费用</text>
+  </g>
+</svg>

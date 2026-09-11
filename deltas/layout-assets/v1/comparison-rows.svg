@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】三类现成方案都不完全适配</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="compare-rows" data-pptx-bounds="80 165 1120 440">
+    <rect x="80" y="165" width="1120" height="140" fill="#F0F0EE"/>
+    <text x="110" y="228" font-size="22" font-weight="700" fill="#0A0A0A">【行一名称】商业套件</text>
+    <text x="110" y="272" font-size="16" fill="#737373">【行一结论】功能覆盖全面，年费持续、定制空间有限</text>
+    <rect x="80" y="315" width="1120" height="140" fill="#FFFFFF"/>
+    <text x="110" y="378" font-size="22" font-weight="700" fill="#0A0A0A">【行二名称】开源方案</text>
+    <text x="110" y="422" font-size="16" fill="#737373">【行二结论】初始成本较低，但需要专人长期维护</text>
+    <rect x="80" y="465" width="1120" height="140" fill="#F0F0EE"/>
+    <text x="110" y="528" font-size="22" font-weight="700" fill="#0A0A0A">【行三名称】网盘共享</text>
+    <text x="110" y="572" font-size="16" fill="#737373">【行三结论】零额外成本，但没有权限控制与经验沉淀</text>
+  </g>
+</svg>

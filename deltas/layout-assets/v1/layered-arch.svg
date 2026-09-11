@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】平台由四个模块组成</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="layer-stack" data-pptx-bounds="80 175 1120 430">
+    <rect x="80" y="175" width="1120" height="120" fill="#EFF6FF"/>
+    <rect x="80" y="175" width="8" height="120" fill="#002FA7"/>
+    <text x="120" y="228" font-size="22" font-weight="700" fill="#0A0A0A">【层一名称】统一检索层</text>
+    <text x="120" y="266" font-size="16" fill="#737373">【层一职责】提供统一入口与结果排序，屏蔽底层存储差异</text>
+    <rect x="80" y="311" width="1120" height="120" fill="#F0F0EE"/>
+    <rect x="80" y="311" width="8" height="120" fill="#002FA7"/>
+    <text x="120" y="364" font-size="22" font-weight="700" fill="#0A0A0A">【层二名称】权限控制与知识沉淀</text>
+    <text x="120" y="402" font-size="16" fill="#737373">【层二职责】按项目与角色授权，结项时沉淀决策与经验记录</text>
+    <rect x="80" y="447" width="1120" height="120" fill="#EFF6FF"/>
+    <rect x="80" y="447" width="8" height="120" fill="#002FA7"/>
+    <text x="120" y="500" font-size="22" font-weight="700" fill="#0A0A0A">【层三名称】数据治理与运营统计</text>
+    <text x="120" y="538" font-size="16" fill="#737373">【层三职责】统一数据标准，统计使用情况以支撑后续优化</text>
+  </g>
+</svg>
