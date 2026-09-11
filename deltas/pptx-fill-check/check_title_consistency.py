@@ -42,7 +42,7 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from capacity import iter_text_shapes, resolve_size_pt
+from capacity import iter_text_shapes, resolve_size_pt, vw_of
 from pptx import Presentation
 
 DIFF_PT = 0.5  # allowed same-level spread after 0.5pt grid collapse
@@ -106,6 +106,49 @@ def is_bucket_tier(tier: str) -> bool:
     return tier.startswith("text@")
 
 
+SEQ_MAX_LEN = 4      # "01", "1.", "(3)", "A", "IV"
+SHORT_MAX_VW = 5.0   # CJK <=5 chars (or equivalent visual width)
+
+
+def classify_subtier(text: str) -> str:
+    """Classify one free-design title into a text-feature subtier.
+
+    Same-bucket titles with different *roles* were the source of the C-004/C-007
+    false positives (a 18pt explanatory sentence compared against a 21pt card
+    label). Font size alone cannot separate them, but their shape can:
+
+    ``seq``   — a numbering token: pure digits/letters, length <= SEQ_MAX_LEN
+                (``01``, ``1.``, ``(3)``, ``A``). Card/section numbering.
+    ``short`` — a non-numbering short label, visual width <= SHORT_MAX_VW
+                (``风险``, ``对策``, ``验收标准``). Card titles and tags.
+    ``long``  — everything else: subtitles and explanatory sentences.
+
+    The subtier is a *heuristic*, not a semantic role. It deliberately only
+    splits within one font-size bucket, so it cannot create or hide a
+    cross-bucket finding.
+    """
+    t = (text or "").strip()
+    if not t:
+        return "long"
+    # --- seq: numbering token ---
+    if len(t) <= SEQ_MAX_LEN and not any(ch.isspace() for ch in t):
+        stripped = t.strip("()（）[]【】.、,，:：-—_")
+        # seq must be an ASCII numbering token. CJK labels like "风险" are also
+        # str.isalpha(), so restrict to ASCII digits/letters explicitly.
+        if stripped and stripped.isascii() and stripped.isalnum():
+            if stripped.isdigit() or stripped.isalpha():
+                return "seq"
+    # --- short: brief label ---
+    if vw_of(t) <= SHORT_MAX_VW:
+        return "short"
+    return "long"
+
+
+def subtier_tier_label(low: float, high: float, subtier: str) -> str:
+    """Bucket tier label including the text-feature subtier."""
+    return f"{bucket_tier_label(low, high)}/{subtier}"
+
+
 def bucket_tier_label(low: float, high: float) -> str:
     """Return the stable tier label for one closed font-size bucket."""
     def fmt(v: float) -> str:
@@ -123,6 +166,11 @@ def assign_size_buckets(titles, gap: float = SIZE_BUCKET_GAP_DEFAULT) -> None:
     one bucket, so a 48/42/30/24/21/18 deck yields several buckets and the
     cover title is never compared with body-size labels. Same-bucket drift
     (e.g. 28 -> 24 with a 4pt gap) stays detectable.
+
+    Each bucket is further split by the text-feature subtier from
+    :func:`classify_subtier` (``seq`` / ``short`` / ``long``), so a 18pt
+    explanatory sentence is never compared against a 21pt card label even when
+    both land in the same font-size bucket.
 
     Known limitation: a cross-bucket drift (e.g. one 28pt page title rewritten
     to 18pt) lands in a different bucket and is therefore NOT reported. Without
@@ -150,7 +198,9 @@ def assign_size_buckets(titles, gap: float = SIZE_BUCKET_GAP_DEFAULT) -> None:
 
     for t in non_ph:
         low, high = bucket_of(t["size_pt"])
-        t["tier"] = bucket_tier_label(low, high)
+        sub = classify_subtier(t.get("text", ""))
+        t["subtier"] = sub
+        t["tier"] = subtier_tier_label(low, high, sub)
 
 
 def _tier(role: str) -> str:

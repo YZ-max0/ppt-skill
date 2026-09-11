@@ -113,6 +113,10 @@
 5. **入库前必须过 checker**：`svg_quality_checker.py <proj> --quick-generate --stage final --json`
    须 **blocking = 0 且 introduced = 0**
 6. **bounds 已按最坏情况占位文案验证**：填充时不需重新测量/试探 bounds（见 §5）
+7. **骨架内相邻层级的字号差 ≥ 6pt**（如说明行 16pt → 标题 22pt，而非 16 → 18）。
+   理由：`check_title_consistency.py` 的 free-design 路径按字号聚类分档（`--size-bucket-gap`
+   默认 4pt），字号过于密集会让不同层级落进同一档，产生"档内混角色"误报（C-004/C-007）。
+   拉开 ≥6pt 可从源头避免该耦合。**此约束自 T-FIX3 起对未来骨架生效；已有骨架不回改。**
 
 ## 5. 填充流程（推荐顺序）
 
