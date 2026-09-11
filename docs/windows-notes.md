@@ -159,3 +159,33 @@ ph_count = sum(t.count('【') for t in all_text_frames)   # 必须 == 0
 ```
 
 T-M1A / T-E2E2 两次实测该断言均有效（21 页产物 `【` 计数 = 0）。
+
+## W-8 · 新写入的文件会被端点加密软件加密（T-M2A 实测发现）
+
+本机安全软件（TSD，与 vendor 内 17 个加密资产同一机制）会对**新写入的文件做透明加密**。
+典型受害者是**渲染/导出的图片**：
+
+| 读取方 | 看到的内容 |
+|---|---|
+| Windows 进程（Python / PowerShell） | 正常 PNG（首字节 `89 50 4E 47`） |
+| **WSL 进程**（含 harness 的图片查看能力） | `%TSD-Header-###%` 加密头 |
+
+实测：COM 渲染出的 `slide-02.png`，WSL `head -c 16` 得到 `%TSD-Header-###%`；
+Windows `[IO.File]::ReadAllBytes` 得到标准 PNG 魔数。
+
+**影响**：WSL 侧的任何图像处理、预览、比对**全部失效**。
+
+**绕行原则：所有图片处理必须在 Windows 进程中完成。**
+
+```python
+# 正确：用 Windows python + Pillow 做缩略图/分析/拼图
+python -c "from PIL import Image; im=Image.open(r'C:\...\slide-01.png'); print(im.size)"
+```
+
+```text
+# 错误：在 WSL 侧读取渲染产物
+head -c 16 /mnt/c/.../slide-01.png   →  %TSD-Header-###%   (读不到 PNG 内容)
+```
+
+`deltas/render-preview/render_png.py` 即按此原则实现：contact sheet 生成、像素统计、
+结构预览全部走 Windows 侧 Pillow，不经过 WSL 文件读取。
