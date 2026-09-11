@@ -148,3 +148,49 @@ A-001~A-011 的"落盘文件"列已按实际形态修正（基座引用 vs delta
 1. S1 输入优先使用真实资产 `templates/tables/*.svg`，自写 SVG 作为补充而非首选
 2. 报告必须记录 `python --version` + 关键依赖版本（python-pptx/lxml），环境问题才能定性
 3. 顺序：commit 1 → commit 2 → 冒烟；报告唯一 repo 新增 `docs/smoke-report.md`
+
+## 2026-09-11 · 第三批复核与 P-2 修复裁决（本会话指挥官）
+
+### 复核结论
+
+- commit 链：`26102bb`（deltas 2 文件）/ `034787e`（治理 3 文件）均达标，当前工作区仅 `docs/smoke-report.md` 未提交 ✅
+- S1/S2/S4 跑通；S3 暴露 P-2 ✅（报告 236 行，四段 + 分级问题清单 + 未验证项 + 建议，结构完整）
+- **P-2 指挥官代码级复核**：`capacity.py:193` + `detect_overflow.py:82` 组合缺陷实锤——wrap=False 恒 `max_lines=1` 与折行 demand 估算组合产出假 P0（usage=2.0）。定性：D-2 实现缺陷，责任在本 repo ✅
+
+### 裁决
+
+1. **smoke-report 提交**：授权，message `docs(smoke): M0 integration smoke report + env findings`
+2. **P-2 修复卡发布**：`tasks/T-FIX1.md`，优先级 P0（高于任何新文档增量）。裁决理由：P0 退出码是 D-2 核心价值，当前在真实产物上不可用
+3. 修复框架：首选水平判据（最长段 vw/cpl，1.0/1.2 档不变、语义改为水平超宽）；备选"wrap=False 最高 P1"须附 ≥5 样本误差分析
+4. P-1/P-3/P-4/P-5 绕行知识：并入 T-FIX1 次要交付 `docs/windows-notes.md`
+5. P-7（batch_validate 退出码）记 backlog：自动化解文本、不依赖退出码；不向上游提 issue（非阻塞）
+
+### 治理警报（第二次记录，仍未澄清）
+
+T-SMOKE / decisions 追加段 / EXECUTION-PACK 的"第二写入源"：执行者亦确认非其创建。三方（指挥官/执行者原文/用户侧）均未认领。**在用户澄清前，第二源产物一律经指挥官复核追认后方可执行**；本会话为唯一指令源。
+
+## 2026-09-11 · T-FIX1 复核与 M0 关闭裁决
+
+### 复核结论（指挥官读码验证）
+
+- `detect_overflow.py` 分轴判据：wrap → vertical（demand/max_lines）、nowrap → horizontal（longest_vw/cpl），`axis`/`overflow_horizontal` 字段与按轴 remedy 完整正确 ✅
+- `auto_size` 采集端扩展为 `(TEXT_TO_FIT_SHAPE, SHAPE_TO_FIT_TEXT)` 并附物理语义注释 ✅
+- `capacity.py` 双轴契约 docstring 含历史缺陷记录（防回退）✅
+- 靶场 32 P0 → 0 P0；回归 3 样张不变；新增 wrap_ok/wrap_over 双向验证；`docs/windows-notes.md`（67 行）四条绕行准确 ✅
+- 工作区核对：M 3 文件 + ?? windows-notes + 指挥官侧 decisions/T-FIX1 卡，与声明一致 ✅
+
+### 建议处置
+
+1. 判据正确性依赖"物理保证识别" → **采纳**，作为 D-2 设计原则记录（本条 + README 软放行表）
+2. 水平轴 inset 固定 0.25cm 精度风险 → **backlog**（出现自定义 margin 争议时才修，届时读 `tf.margin_left/right`）
+3. wrap_over 收编为固定回归样张 → **采纳，转为 backlog 执行项**：把样张生成脚本（make_samples.py 等）收编到 `tests/scripts/`，运行时生成 .pptx 到临时目录（.pptx 仍不进 repo）；并入 M1 阶段小卡
+4. 提交 FIX1 改动 → **授权**（见下）
+
+### 提交授权（两个 commit）
+
+- commit 1：`fix(d2): wrap-axis judgment + auto_size soft-pass (T-FIX1)`（capacity/detect/README）
+- commit 2：`docs: windows-notes + T-FIX1 governance`（windows-notes + decisions + T-FIX1 卡）
+
+## M0 关闭宣言
+
+M0 全部交付关闭：导演工作流（D-1）｜基座挂载（D-6）｜填充质检（D-2 + FIX1）｜风格锁（D-3）｜演讲者模式（D-4）｜测试集 v1（D-5）｜集成冒烟（S1-S4，7 条问题清单 + windows-notes）。vendor 累计改动仅 2 处最小登记（routing.md §8 / index.md §2），其余零触碰。下一步进入 M1 策划（端到端真实生成首跑）。
