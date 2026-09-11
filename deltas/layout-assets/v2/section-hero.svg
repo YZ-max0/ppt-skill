@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="section" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#0A0A0A"/>
+  </g>
+  <g id="section-number" data-pptx-bounds="80 150 480 420">
+    <text x="80" y="470" font-size="240" font-weight="700" fill="#002FA7">01</text>
+  </g>
+  <g id="section-title" data-pptx-bounds="600 260 620 220">
+    <text x="600" y="360" font-size="56" font-weight="700" fill="#FFFFFF">【章节标题】</text>
+    <rect x="600" y="400" width="120" height="6" fill="#002FA7"/>
+    <text x="600" y="460" font-size="22" fill="#737373">【章节说明】本章要解决的问题与结论</text>
+  </g>
+</svg>

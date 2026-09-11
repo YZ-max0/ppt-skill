@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】预算分配占比</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="donut-plot" data-pptx-bounds="140 180 460 400">
+    <circle cx="360" cy="380" r="160" fill="none" stroke="#E2E8F0" stroke-width="56"/>
+    <circle cx="360" cy="380" r="160" fill="none" stroke="#002FA7" stroke-width="56"
+            stroke-dasharray="502 1005" transform="rotate(-90 360 380)"/>
+    <circle cx="360" cy="380" r="160" fill="none" stroke="#4A6FD4" stroke-width="56"
+            stroke-dasharray="251 1256" transform="rotate(90 360 380)"/>
+    <text x="360" y="368" font-size="56" font-weight="700" fill="#0A0A0A" text-anchor="middle">80 万</text>
+    <text x="360" y="410" font-size="20" font-weight="600" fill="#737373" text-anchor="middle">【中心标签】总预算</text>
+  </g>
+  <g id="donut-legend" data-pptx-bounds="660 240 520 280">
+    <rect x="660" y="250" width="20" height="20" fill="#002FA7"/>
+    <text x="700" y="268" font-size="24" font-weight="600" fill="#0A0A0A">【图例一】软件与实施</text>
+    <text x="700" y="300" font-size="18" fill="#737373">【图例一值】60 万</text>
+    <rect x="660" y="360" width="20" height="20" fill="#4A6FD4"/>
+    <text x="700" y="378" font-size="24" font-weight="600" fill="#0A0A0A">【图例二】硬件与培训</text>
+    <text x="700" y="410" font-size="18" fill="#737373">【图例二值】20 万</text>
+  </g>
+  <g id="donut-note" data-pptx-bounds="120 600 1080 80">
+    <text x="120" y="645" font-size="18" fill="#737373">【图表说明】软件与实施占预算四分之三，硬件与培训占四分之一</text>
+  </g>
+</svg>

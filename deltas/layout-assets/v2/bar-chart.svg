@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】预算四项构成对比</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="bar-plot" data-pptx-bounds="120 160 1080 400">
+    <rect x="120" y="500" width="1080" height="2" fill="#E2E8F0"/>
+    <rect x="190" y="210" width="130" height="290" fill="#002FA7"/>
+    <text x="255" y="192" font-size="28" font-weight="700" fill="#002FA7" text-anchor="middle">【柱一值】40 万</text>
+    <text x="255" y="546" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【柱一名称】软件许可</text>
+    <rect x="420" y="355" width="130" height="145" fill="#002FA7"/>
+    <text x="485" y="337" font-size="28" font-weight="700" fill="#002FA7" text-anchor="middle">【柱二值】20 万</text>
+    <text x="485" y="546" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【柱二名称】实施集成</text>
+    <rect x="650" y="413" width="130" height="87" fill="#002FA7"/>
+    <text x="715" y="395" font-size="28" font-weight="700" fill="#002FA7" text-anchor="middle">【柱三值】12 万</text>
+    <text x="715" y="546" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【柱三名称】硬件存储</text>
+    <rect x="880" y="442" width="130" height="58" fill="#002FA7"/>
+    <text x="945" y="424" font-size="28" font-weight="700" fill="#002FA7" text-anchor="middle">【柱四值】8 万</text>
+    <text x="945" y="546" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【柱四名称】培训预备</text>
+  </g>
+  <g id="bar-note" data-pptx-bounds="120 590 1080 90">
+    <text x="120" y="640" font-size="18" fill="#737373">【图表说明】四项合计八十万，为一次性投入</text>
+  </g>
+</svg>

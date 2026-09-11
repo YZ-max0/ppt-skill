@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="cover" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#0A0A0A"/>
+  </g>
+  <g id="bold-geometry" data-pptx-bounds="0 0 1280 720">
+    <rect x="0" y="0" width="520" height="720" fill="#002FA7"/>
+    <rect x="520" y="0" width="12" height="720" fill="#FFFFFF"/>
+    <rect x="900" y="440" width="300" height="10" fill="#002FA7"/>
+    <rect x="900" y="470" width="180" height="10" fill="#002FA7"/>
+  </g>
+  <g id="bold-title" data-pptx-bounds="560 220 680 260">
+    <text x="560" y="330" font-size="52" font-weight="700" fill="#FFFFFF">【标题】知识库平台建设方案</text>
+    <text x="560" y="410" font-size="24" fill="#E2E8F0">【副标题】从散落文档到可检索的组织资产</text>
+  </g>
+  <g id="bold-meta" data-pptx-bounds="560 560 680 100">
+    <text x="560" y="600" font-size="22" fill="#737373"><tspan x="560" dy="0">【汇报单位】信息化建设部</tspan><tspan x="560" dy="40">【周期】2026 年度</tspan></text>
+  </g>
+  <g id="bold-mark" data-pptx-bounds="80 560 360 100">
+    <text x="80" y="620" font-size="56" font-weight="700" fill="#FFFFFF">KB</text>
+    <text x="80" y="652" font-size="18" fill="#E2E8F0">知识库平台建设方案</text>
+  </g>
+</svg>

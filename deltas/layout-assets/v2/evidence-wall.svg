@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】三项证据支撑立项判断</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="wall-grid" data-pptx-bounds="80 180 1120 400">
+    <rect x="80" y="180" width="540" height="185" fill="#F0F0EE"/>
+    <rect x="80" y="180" width="6" height="185" fill="#002FA7"/>
+    <text x="120" y="245" font-size="56" font-weight="700" fill="#002FA7">80 万</text>
+    <text x="120" y="295" font-size="22" font-weight="600" fill="#0A0A0A">【证据一】一次性投入预算</text>
+    <text x="120" y="330" font-size="18" fill="#737373">软件、实施、硬件与培训四项合计</text>
+    <rect x="660" y="180" width="540" height="185" fill="#F0F0EE"/>
+    <rect x="660" y="180" width="6" height="185" fill="#002FA7"/>
+    <text x="700" y="245" font-size="56" font-weight="700" fill="#002FA7">45 万</text>
+    <text x="700" y="295" font-size="22" font-weight="600" fill="#0A0A0A">【证据二】年节省估算</text>
+    <text x="700" y="330" font-size="18" fill="#737373">按找资料与返工工时折算</text>
+    <rect x="80" y="395" width="540" height="185" fill="#FFFFFF"/>
+    <rect x="80" y="395" width="6" height="185" fill="#002FA7"/>
+    <text x="120" y="460" font-size="56" font-weight="700" fill="#002FA7">1.8 年</text>
+    <text x="120" y="510" font-size="22" font-weight="600" fill="#0A0A0A">【证据三】预计回本周期</text>
+    <text x="120" y="545" font-size="18" fill="#737373">按上述节省口径推算得出</text>
+    <rect x="660" y="395" width="540" height="185" fill="#0A0A0A"/>
+    <text x="700" y="470" font-size="28" font-weight="700" fill="#FFFFFF">【结论】投入可控</text>
+    <text x="700" y="515" font-size="20" fill="#E2E8F0"><tspan x="700" dy="0">两项风险均有明确对策，</tspan><tspan x="700" dy="33">不构成立项阻碍。</tspan></text>
+  </g>
+</svg>

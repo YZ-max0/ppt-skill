@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】投入与年节省的趋势对照</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="line-plot" data-pptx-bounds="160 160 960 380">
+    <rect x="160" y="500" width="960" height="2" fill="#E2E8F0"/>
+    <rect x="160" y="200" width="2" height="300" fill="#E2E8F0"/>
+    <polyline points="240,470 400,420 560,360 720,300 880,250 1040,215"
+              fill="none" stroke="#002FA7" stroke-width="4"/>
+    <circle cx="240" cy="470" r="9" fill="#002FA7"/>
+    <circle cx="560" cy="360" r="9" fill="#002FA7"/>
+    <circle cx="1040" cy="215" r="9" fill="#002FA7"/>
+    <text x="240" y="520" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【点一】投入</text>
+    <text x="560" y="520" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【点二】第一年</text>
+    <text x="1040" y="520" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【点三】第二年</text>
+    <text x="240" y="446" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">80 万</text>
+    <text x="560" y="336" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">35 万</text>
+    <text x="1040" y="191" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">10 万</text>
+  </g>
+  <g id="line-note" data-pptx-bounds="120 580 1080 90">
+    <text x="120" y="630" font-size="18" fill="#737373">【图表说明】累计净投入随节省逐年下降，约一年八个月转正</text>
+  </g>
+</svg>

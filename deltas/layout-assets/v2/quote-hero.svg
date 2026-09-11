@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="1280" height="14" fill="#002FA7"/>
+    <rect x="0" y="706" width="1280" height="14" fill="#002FA7"/>
+  </g>
+  <g id="quote-mark" data-pptx-bounds="120 120 200 220">
+    <text x="120" y="270" font-size="160" font-weight="700" fill="#E2E8F0">“</text>
+  </g>
+  <g id="quote-body" data-pptx-bounds="120 300 1040 240">
+    <text x="120" y="400" font-size="56" font-weight="700" fill="#0A0A0A"><tspan x="120" dy="0">【引文第一行】让知识不再依赖</tspan><tspan x="120" dy="72">个人记忆与临时询问。</tspan></text>
+  </g>
+  <g id="quote-attrib" data-pptx-bounds="120 570 1040 100">
+    <rect x="120" y="575" width="60" height="4" fill="#002FA7"/>
+    <text x="120" y="625" font-size="22" fill="#737373">【出处】知识库平台建设方案 — 核心主张</text>
+  </g>
+</svg>
