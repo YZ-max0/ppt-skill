@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】下周计划围绕三个关键目标推进</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="timeline-track" data-pptx-bounds="80 190 1120 240">
+    <rect x="80" y="200" width="1120" height="6" fill="#E2E8F0"/>
+    <circle cx="210" cy="203" r="16" fill="#002FA7"/>
+    <circle cx="640" cy="203" r="16" fill="#002FA7"/>
+    <circle cx="950" cy="203" r="16" fill="#E2E8F0"/>
+    <text x="150" y="290" font-size="22" font-weight="700" fill="#0A0A0A">【节点一标题】</text>
+    <text x="150" y="330" font-size="20" font-weight="600" fill="#002FA7">【节点一主句】完成回归测试</text>
+    <text x="150" y="370" font-size="16" fill="#737373"><tspan x="150" dy="0">【节点一说明】覆盖核心流程与接口</tspan><tspan x="150" dy="26">边界，输出完整测试报告</tspan></text>
+    <text x="580" y="290" font-size="22" font-weight="700" fill="#0A0A0A">【节点二标题】</text>
+    <text x="580" y="330" font-size="20" font-weight="600" fill="#002FA7">【节点二主句】推动接口切换</text>
+    <text x="580" y="370" font-size="16" fill="#737373"><tspan x="580" dy="0">【节点二说明】第三方就绪后一个工作</tspan><tspan x="580" dy="26">日内完成正式切换</tspan></text>
+    <text x="900" y="290" font-size="22" font-weight="700" fill="#0A0A0A">【节点三标题】</text>
+    <text x="900" y="330" font-size="20" font-weight="600" fill="#002FA7">【节点三主句】输出验收材料</text>
+    <text x="900" y="370" font-size="16" fill="#737373"><tspan x="900" dy="0">【节点三说明】整理验收清单与</tspan><tspan x="900" dy="26">演示环境说明</tspan></text>
+  </g>
+  <g id="timeline-summary" data-pptx-bounds="80 460 1120 170">
+    <rect x="80" y="460" width="1120" height="170" fill="#F0F0EE"/>
+    <text x="120" y="520" font-size="20" font-weight="600" fill="#0A0A0A">【小结标题】交付判断</text>
+    <text x="120" y="565" font-size="18" fill="#737373"><tspan x="120" dy="0">【小结正文】三项计划在当前资源条件下均可完成，</tspan><tspan x="120" dy="30">唯一不确定项是外部接口的就绪时间。</tspan></text>
+  </g>
+</svg>

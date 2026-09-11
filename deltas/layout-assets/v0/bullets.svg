@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】本周完成四项工作，整体进度符合预期</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="bullet-list" data-pptx-bounds="80 165 1120 465">
+    <rect x="80" y="165" width="1120" height="100" fill="#F0F0EE"/>
+    <text x="110" y="210" font-size="28" font-weight="700" fill="#002FA7">01</text>
+    <text x="185" y="210" font-size="22" font-weight="600" fill="#0A0A0A">【要点一】接口联调全部完成</text>
+    <text x="185" y="243" font-size="16" fill="#737373">【说明一】全部六个外部接口联调通过，返回数据结构符合双方约定</text>
+    <rect x="80" y="281" width="1120" height="100" fill="#FFFFFF"/>
+    <text x="110" y="326" font-size="28" font-weight="700" fill="#002FA7">02</text>
+    <text x="185" y="326" font-size="22" font-weight="600" fill="#0A0A0A">【要点二】数据看板正式上线</text>
+    <text x="185" y="359" font-size="16" fill="#737373">【说明二】核心八项指标看板已对内开放，数据每小时自动刷新一次</text>
+    <rect x="80" y="397" width="1120" height="100" fill="#F0F0EE"/>
+    <text x="110" y="442" font-size="28" font-weight="700" fill="#002FA7">03</text>
+    <text x="185" y="442" font-size="22" font-weight="600" fill="#0A0A0A">【要点三】性能优化达到目标</text>
+    <text x="185" y="475" font-size="16" fill="#737373">【说明三】列表查询平均耗时由二点四秒降至零点八秒，已达验收标准</text>
+    <rect x="80" y="513" width="1120" height="100" fill="#FFFFFF"/>
+    <text x="110" y="558" font-size="28" font-weight="700" fill="#002FA7">04</text>
+    <text x="185" y="558" font-size="22" font-weight="600" fill="#0A0A0A">【要点四】项目文档归档完成</text>
+    <text x="185" y="591" font-size="16" fill="#737373">【说明四】设计说明与操作手册已归档至知识库，累计十二份文档</text>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="cover" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="24" height="720" fill="#002FA7"/>
+  </g>
+  <g id="cover-title" data-pptx-bounds="120 200 1040 200">
+    <text x="120" y="300" font-size="56" font-weight="700" fill="#0A0A0A">【主标题】二〇二五年度工作汇报总结</text>
+    <text x="120" y="360" font-size="24" fill="#737373">【副标题】一句话概括本次汇报的核心结论或主张</text>
+  </g>
+  <g id="cover-meta" data-pptx-bounds="120 560 1040 120">
+    <text x="120" y="600" font-size="18" fill="#737373">【汇报人】姓名 / 所属团队</text>
+    <text x="120" y="640" font-size="18" fill="#737373">【周期】汇报覆盖的时间范围</text>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】三项核心指标均达成年度目标</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="kpi-row" data-pptx-bounds="80 180 1120 270">
+    <text x="80" y="320" font-size="96" font-weight="700" fill="#002FA7">88%</text>
+    <text x="80" y="380" font-size="22" font-weight="600" fill="#0A0A0A">【指标一名称】年度目标完成率</text>
+    <text x="80" y="415" font-size="16" fill="#737373">【指标一说明】较上一年度提升十二个百分点</text>
+    <text x="490" y="320" font-size="96" font-weight="700" fill="#002FA7">156</text>
+    <text x="490" y="380" font-size="22" font-weight="600" fill="#0A0A0A">【指标二名称】累计交付项目数</text>
+    <text x="490" y="415" font-size="16" fill="#737373">【指标二说明】覆盖六个业务条线与全部重点场景</text>
+    <text x="860" y="320" font-size="96" font-weight="700" fill="#002FA7">99.4%</text>
+    <text x="860" y="380" font-size="22" font-weight="600" fill="#0A0A0A">【指标三名称】服务可用性</text>
+    <text x="860" y="415" font-size="16" fill="#737373">【指标三说明】全年无重大故障</text>
+  </g>
+  <g id="kpi-note" data-pptx-bounds="80 490 1120 150">
+    <rect x="80" y="500" width="1120" height="130" fill="#F0F0EE"/>
+    <text x="120" y="545" font-size="20" font-weight="600" fill="#0A0A0A">【结论标题】数据口径说明</text>
+    <text x="120" y="588" font-size="18" fill="#737373"><tspan x="120" dy="0">【结论文本】以上指标均按财务年度口径统计，</tspan><tspan x="120" dy="26">与上次汇报口径一致，可直接对比。</tspan></text>
+  </g>
+</svg>

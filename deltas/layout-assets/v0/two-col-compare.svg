@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】两项主要风险已识别并给出对策</text>
+    <rect x="80" y="112" width="80" height="4" fill="#FF6B35"/>
+  </g>
+  <g id="compare-left" data-pptx-bounds="80 165 545 465">
+    <rect x="80" y="165" width="545" height="465" fill="#F0F0EE"/>
+    <rect x="80" y="165" width="8" height="465" fill="#FF6B35"/>
+    <text x="120" y="230" font-size="28" font-weight="700" fill="#0A0A0A">【左栏标题】风险一</text>
+    <text x="120" y="280" font-size="22" font-weight="600" fill="#FF6B35">【左栏主句】第三方接口交付延迟</text>
+    <text x="120" y="335" font-size="16" fill="#737373">【左栏影响】可能推迟联调验收窗口</text>
+    <text x="120" y="375" font-size="16" fill="#737373">【左栏评估】概率中，影响中</text>
+    <text x="120" y="440" font-size="18" font-weight="600" fill="#0A0A0A">对策</text>
+    <text x="120" y="480" font-size="16" fill="#737373"><tspan x="120" dy="0">【左栏对策】已启用备用方案先行完成</tspan><tspan x="120" dy="26">内部联调，待对方就绪后切换</tspan></text>
+  </g>
+  <g id="compare-right" data-pptx-bounds="655 165 545 465">
+    <rect x="655" y="165" width="545" height="465" fill="#F0F0EE"/>
+    <rect x="655" y="165" width="8" height="465" fill="#FF6B35"/>
+    <text x="695" y="230" font-size="28" font-weight="700" fill="#0A0A0A">【右栏标题】风险二</text>
+    <text x="695" y="280" font-size="22" font-weight="600" fill="#FF6B35">【右栏主句】测试人力存在缺口</text>
+    <text x="695" y="335" font-size="16" fill="#737373">【右栏影响】回归测试覆盖度不足</text>
+    <text x="695" y="375" font-size="16" fill="#737373">【右栏评估】概率高，影响中</text>
+    <text x="695" y="440" font-size="18" font-weight="600" fill="#0A0A0A">对策</text>
+    <text x="695" y="480" font-size="16" fill="#737373"><tspan x="695" dy="0">【右栏对策】已申请一名测试支援，</tspan><tspan x="695" dy="26">优先保障核心流程回归</tspan></text>
+  </g>
+</svg>
