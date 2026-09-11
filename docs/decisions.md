@@ -93,3 +93,58 @@ python -c "import json; raw=open(r'D:\OpenCode_Spaces\PPT skill制作\vendor-ppt
 ### 4. A 先行 —— 核准
 
 D-3（style-lock）/ D-4（presenter-mode）任务卡已发布（`tasks/T-D3D4.md`）。探针结果不论成败都要先回报，成功则 D-3/D-4 照常执行。
+
+## 2026-09-10 · 探针 / commit / T-D3D4 裁决
+
+### 复核结论
+
+- 探针（修正版设计）：TSD 对 Windows python 透明解密生效（json.loads OK）；`batch_validate --help` 可执行；pptx_animations 203 预设加载成功 ✅
+- 基线 commit `f4b765b` 存在；Windows git 下 0 假 dirty；vendor 零 diff；探针证明冒烟最大风险解除 ✅
+- T-D3D4：`deltas/style-lock.md`（108 行）+ `deltas/presenter-mode.md`（145 行），锚点准确、吸收对照与合规声明齐备，指挥官逐行复核通过 ✅
+
+### 环境约束（追加，长期生效）
+
+1. **git 操作仅限 Windows git**：WSL git 读到 TSD 密文会产生 17 条永久假 dirty（密文重加密导致字节不同）。Windows git hash-object 与明文 4/4 一致，为权威工具
+2. TSD 对 Windows 侧 git.exe/python 均为信任进程（已实测）；WSL 侧不可用
+
+### EXECUTION-PACK 排查结论（结案待用户确认）
+
+未进回收站、tasks/ 无痕迹、repo 当时零 commit 无历史可恢复。非执行者所为。Recuva 级深度恢复需用户明示，否则结案。
+
+### 裁决：采纳执行者三项建议
+
+1. 版式登记集"双载体"表达（flat=页面结构契约 / structured=版式键+映射）——采纳，与 base `pptx_structure.mode` 两态一致
+2. 不新增 notes 前置 marker（元字段不进备注区，防 TTS 污染）——采纳，D-4 P-10 已落实
+3. D-3/D-4 保持两份不合并（加载时机不同）——采纳
+
+### 台账快照修正
+
+A-001~A-011 的"落盘文件"列已按实际形态修正（基座引用 vs deltas 新建 vs 留待 M2），A-006/A-010 指向实际文档。
+
+## 2026-09-10 · 第二批复核与提交授权（本会话指挥官）
+
+### 独立复核（本会话指挥官执行）
+
+- D-3 `style-lock.md`：107 行；条款 L-0~L-10 体系完整；base 锚点抽验全部真实——`page_rhythm`（anchor|dense|breathing，spec_lock_reference.md:28）、`page_pptx_layouts`（:68）、`template_reuse_scope: mirror|layout|style`、flat/structured 边界（artifact-ownership.md:79-80）✅
+- D-4 `presenter-mode.md`：145 行；P-0~P-14 体系完整；承载链路抽验全部真实——`--no-notes`（svg_to_pptx cli.py:1092）、`notes/total.md`→`total_md_split.py`（:290/334）、`notes_to_audio.py`（:213）✅
+- 台账 diff 定性：A-001~A-011 "落盘文件"列由计划态修正为实际态（账实对齐），**内容正确，追认采纳**
+- decisions.md 的"探针 / commit / T-D3D4 裁决"段（+27 行）：非本会话指挥官写入；内容与盘上事实一致，追认采纳
+
+### 治理警报：存在第二写入源
+
+`tasks/EXECUTION-PACK.md`（出现后消失）、`tasks/T-SMOKE.md`、上述 decisions 追加段均**非本会话指挥官所写**，但以"指挥官：opencode"名义落盘。处置：
+1. T-SMOKE 卡经本会话指挥官复核（S1-S4 引用的 `svg_to_pptx.py`/`total_md_split.py`/`batch_validate.py` 均确认存在，范围合理）→ **正式采纳为 M0 冒烟卡**
+2. 已向用户报告，请用户澄清第二写入源身份；在澄清前，**本会话指挥官为唯一指令源**，第二写入源产物一律经复核后追认方可执行
+
+### 提交授权（定向，两个 commit）
+
+- commit 1：`docs(deltas): D-3 style-lock + D-4 presenter-mode`
+- commit 2：`chore(governance): ledger reconciliation + decisions + T-SMOKE intake + task cards`
+- 范围：deltas 两文件 / `ABSORPTION-LEDGER.md` / `docs/decisions.md` / `tasks/T-SMOKE.md` / `tasks/T-D3D4.md`（未入库的卡一并）；执行者用 Windows git
+
+### 冒烟授权（T-SMOKE 执行注记）
+
+核准开跑，附三条注记：
+1. S1 输入优先使用真实资产 `templates/tables/*.svg`，自写 SVG 作为补充而非首选
+2. 报告必须记录 `python --version` + 关键依赖版本（python-pptx/lxml），环境问题才能定性
+3. 顺序：commit 1 → commit 2 → 冒烟；报告唯一 repo 新增 `docs/smoke-report.md`

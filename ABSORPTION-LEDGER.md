@@ -5,19 +5,19 @@
 
 ## 台账条目（每条一行）
 
-| # | 来源 skill (仓库+许可) | 吸收内容 | 怎么改写 | 落盘文件 | 许可处理 |
+| # | 来源 skill (仓库+许可) | 吸收内容 | 怎么改写 | 落盘文件（实际） | 许可处理 |
 |---|---|---|---|---|---|
-| A-001 | ppt-master 5.0.0 (MIT, hugohe3/ppt-master) | 入口路由：92 行承载"路由+全局纪律"，其余按需加载；`workflows/routing.md` 为唯一路由权威 | 改写（结构保留、文案自写） | `SKILL.md`、`workflows/routing.md` | MIT；保留原版权声明即可 |
-| A-002 | ppt-master (MIT) | `references/pptx-structure-interface.md` 原生 PPTX 对象映射 + `references/executor-*.md` 结构/图表/可视化构建器 | 引用（保留版权声明） | `references/pptx/` | MIT |
-| A-003 | ppt-master (MIT) | `scripts/batch_validate.py` 批量校验 + `workflows/governance/failure-recovery.md` 失败恢复 | 引用/改写 | `scripts/validate.py` | MIT |
-| A-004 | ppt-master (MIT) | `references/visual-styles/*`（20+ 风格，swiss/zine/editorial 等）+ `create-style.md`/`create-layout.md` 模板创作流程 | 引用（可直接用作设计层资产） | `references/styles/` | MIT；注意风格文案中可能含第三方命名，入库前校验 |
-| A-005 | GordenPPTSkill 源码 (MIT；templates/ 非商用) | 出框检测（按文本框尺寸）+ 同级标题字号一致校验 + `build_pptx.py` edits.json 填充管线 + `render_slides.py` 渲染 PNG 审查 | 改写（读源码自写；模板资产一律不碰） | `scripts/pptx/fill.py`、`scripts/pptx/render-preview.py` | 源码 MIT；该 skill 模板目录禁止入库 |
-| A-006 | guizang (AGPL-3.0, op7418/guizang-ppt-skill) | `references/checklist.md` P0/P1/P2 分级 + `layouts.md` 版式库写法 + "锁定版式+锁主题色"设计哲学 + 演前检查列表 | 按原理重写，不引用任何文本/代码 | `references/checklist.md`、`references/layouts.md` | AGPL 不合并、不引用 |
-| A-007 | ppt-director（无 LICENSE = 默认保留版权） | 阶段判断（A 灵感/B 内容/B2 视觉导演/E 迭代）+ 标准交付文档 + 页面结构导演稿（含区域词清洗规则）+ registry 注册表机制（audience/reviewer/style/toolchain） | 按原理重写 | `workflows/director.md`、`references/registry.md` | 无许可：只学原理，不引用文档 |
-| A-008 | dashi-ppt（无 LICENSE；内部包 MIT） | schema 设计理念：先 JSON 计划再生成、内容/视觉分离（content vs fillPlan/props）、按容量选版式（layout-query 理念）、3 模板+1 bespoke 方案 | 按原理重写，参考形状不复制文件 | `schemas/slide.schema.json`（设计依据） | 无许可：只学原理 |
-| A-009 | frontend-slides (MIT, Zara Zhang) | 固定 1920×1080 舞台规则（不重排内容）+ 内容密度模式（reading vs speaking）+ 渐进披露（先 preview 后 design） | 改写 | `references/fixed-stage.md`、`references/density.md` | MIT |
-| A-010 | html-ppt (MIT, lewis) | 演讲者模式：逐字稿 3 规则（提示信号/150-300 字/口语化）+ 4 卡弹窗（当前/下一/逐字稿/计时） | 改写（PPTX 版为备注区/演讲稿双轨） | `references/presenter-mode.md` | MIT |
-| A-011 | beautiful-html-templates (MIT, Zara Zhang) | 模板包组织：`index.json` 索引 + 每模板 `screenshots/*.png` 预览的"可看图选模板"范式 | 只学结构 | `references/template-index.md` | MIT |
+| A-001 | ppt-master 5.0.0 (MIT, hugohe3/ppt-master) | 路由式入口：92 行承载"路由+全局纪律"，其余按需加载；routing.md 为唯一路由权威 | 引用基座 + 增量挂载（§8 Director） | `vendor-ppt-master/`（整体复制，LICENSE 保留）、`vendor-ppt-master/workflows/routing.md`（+§8） | MIT；保留版权声明 |
+| A-002 | ppt-master (MIT) | 原生 PPTX 对象映射 + executor 系列构建器 | 引用（不复制，直接使用 base 文件） | `vendor-ppt-master/references/pptx-structure-interface.md`、`references/executor-*.md` | MIT |
+| A-003 | ppt-master (MIT) | batch_validate 批量校验 + failure-recovery 失败恢复 | 引用（原样使用） | `vendor-ppt-master/scripts/batch_validate.py`、`workflows/governance/failure-recovery.md` | MIT |
+| A-004 | ppt-master (MIT) | visual-styles 20+ 风格 + create-style/create-layout 创作流程 | 引用（原样使用） | `vendor-ppt-master/references/visual-styles/`、`workflows/create-template/` | MIT |
+| A-005 | GordenPPTSkill 源码 (MIT；templates/ 非商用) | 出框检测（按文本框容量）+ 同级标题字号一致性 + 渲染审查思路 | 改写（读源码自写） | `deltas/pptx-fill-check/capacity.py`、`detect_overflow.py`、`check_title_consistency.py`、`README.md` | 源码 MIT；templates/ 零接触 |
+| A-006 | guizang (AGPL-3.0, op7418/guizang-ppt-skill) | 版式"登记即锁"+色板纪律+内容形状决定版式+清单分级（P0-P3 四级） | 按原理重写，不引用任何文本/代码 | `deltas/style-lock.md` | AGPL 不合并、不引用；吸收对照表内置于文档 |
+| A-007 | ppt-director（无 LICENSE = 默认保留版权） | 导演式阶段序列 + 标准交付文档 + 页面结构导演稿（区域词清洗）+ registry 机制 | 按原理重写 | `deltas/director.md` | 无许可：只学原理，不引用文档 |
+| A-008 | dashi-ppt（无 LICENSE；内部包 MIT） | schema 理念：先 JSON 计划再生成、内容/视觉分离、按容量选版式 | 按原理重写，参考形状不复制文件 | （设计依据，未直接落盘；见 `deltas/director.md` §5 映射） | 无许可：只学原理 |
+| A-009 | frontend-slides (MIT, Zara Zhang) | 固定舞台规则 + 内容密度模式 + 渐进披露 | 改写 | 留待 M2 验稿器（HTML 预览）；当前未落盘 | MIT |
+| A-010 | html-ppt (MIT, lewis) | 逐字稿 3 规则（提示信号/150-300 字/口语化） | 改写（PPTX 版为备注区/提词文档双轨） | `deltas/presenter-mode.md`（P-1/P-2/P-3） | MIT |
+| A-011 | beautiful-html-templates (MIT, Zara Zhang) | 模板包组织：index.json + screenshots 预览范式 | 只学结构 | 留待 M2 验稿器；当前未落盘 | MIT |
 
 ## 字段说明
 
