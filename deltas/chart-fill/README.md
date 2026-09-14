@@ -156,13 +156,41 @@ python <vendor>\scripts\svg_quality_checker.py <proj> --quick-generate --stage f
 
 ## 5. 已知边界
 
-- 本工具实现 3 个模板（column / line / bullet）。其余 30 个按 §3 三步法可逐个补齐。
+- 本工具实现 **6 个模板**（column / line / **dual_axis** / **progress** / **area** / bullet）。
+  其余 27 个按 §3 三步法可逐个补齐。
+- **渲染器必须按规则声明的项数上限自证**（C-016 教训）：`charts_index` 说 `progress_bar_chart` 支持 3-8 项，而初版写死行高 92px，6 项即溢出画布（checker blocking=3）。现已改为行高自适应 `min(86, 512/(n-1))`；新增类型时请按上限项数各跑一次 checker。
+- **图例必须独立于类目标签行**（C-015 教训）：初版把图例基线设为 `CAT_Y=600`，与横轴类目标签同排，导致图例压字；现独立为 `LEGEND_Y=648`。该缺陷 checker 拦不住（图例与类目分属两个 `<g>`，各自 bounds 均合法），只能靠渲染后目视发现。
 - `bullet_chart` 在 base 里**无 metadata**，其数据模型是从几何反推的（轨道三段 + 目标线 + 达成率）。
   也因此它**不带原生图表标记**，`--native-charts-and-tables` 对它无效（仍是矢量形状）。
 - 原生图表路由实测：对带标记的 `column_chart` 导出 `--native-charts-and-tables` 后，
   包内生成 `ppt/charts/chart201.xml`，python-pptx 读到 **1 个 native chart shape** →
   路由可用。但注意它**只对该页生效**（无标记的页仍走矢量回退），且样式会被 PowerPoint 归一化。
 - 图表为静态 SVG 几何时不含数据绑定；改数需重跑本工具。
+
+## 5.1 类型清单与依据（T-E2E4 后）
+
+| 类型 | `charts_index` 规则 | 关键几何 |
+|---|---|---|
+| `column` | Pick for single-series category … 3-8 categories | 柱高 = 值/nice_max × 370 |
+| `line` | Pick for 1-3 time-series … showing direction | 点均匀分布；末点标注 |
+| `bullet` | Pick for 3-7 KPIs with explicit target + actual | 轨道满宽 = 目标×1.25；目标标尺 |
+| `dual_axis` | Pick for 2 metrics with **different units/scales** | 左右两套刻度；右轴刻度另绘 |
+| `progress` | Pick for 3-8 items each with a **completion %** | 行高自适应，8 项也落在画布内 |
+| `area` | Pick for 1-2 **cumulative** trend series emphasizing volume | 折线 + 闭合多边形 |
+
+> 选型务必**逐条对照规则原文**，不要按直觉。T-E2E4 的完整选型理由表见
+> `docs/e2e-04-report.md` §2（含一处与契约措辞的偏差记录 C-017）。
+
+## 5.2 逐字稿校验器（`check_notes.py`）
+
+D-4 逐字稿轨道的自动校验（P-2 篇幅 / P-3 口语化 / P-7 总时长 / P-9 一一对应 / P-10 纯净性）：
+
+```powershell
+python deltas\chart-fill\check_notes.py <项目>\notes\total.md <项目>\svg_output <现场分钟数>
+```
+
+- P-7 总时长**强依赖语速假设**，故输出 150/180/200/240 字-分钟的**灵敏度区间**，而非单点结论。
+- 封面/章节/纯过渡页按 P-2 明文豁免 150 字下限。
 
 ## 6. 依赖
 

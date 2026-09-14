@@ -52,7 +52,8 @@ RISK = "#FF6B35"       # 风险/未达标
 PLOT_L, PLOT_R = 160, 1160
 PLOT_T, PLOT_B = 190, 560
 CAT_Y = 600            # 类目标签基线
-NOTE_Y = 662           # 口径/来源说明基线
+LEGEND_Y = 648         # 图例基线（必须独立于 CAT_Y：同排会与类目标签相撞）
+NOTE_Y = 692           # 口径/来源说明基线
 
 
 def esc(s: str) -> str:
@@ -130,7 +131,7 @@ def axis_lines() -> list[str]:
 def note_line(note: str) -> list[str]:
     if not note:
         return []
-    return [f'  <g id="note" data-pptx-bounds="80 645 1120 30">',
+    return [f'  <g id="note" data-pptx-bounds="80 668 1120 44">',
             f'    <text x="80" y="{NOTE_Y}" font-size="18" '
             f'fill="{INK_2}">{esc(note)}</text>',
             '  </g>']
@@ -189,12 +190,13 @@ def render_column(spec: dict) -> str:
     # 图例（多序列时）
     if m > 1:
         lx = PLOT_L
-        out.append('  <g id="legend" data-pptx-bounds="160 610 700 30">')
+        # bounds 顶边须包住 18pt 文字 ascender（CAT_Y=600 → 内容顶约 582）
+        out.append('  <g id="legend" data-pptx-bounds="160 620 760 44">')
         for si, s in enumerate(series):
             color = s.get("color", colors[si % len(colors)])
-            out.append(f'    <rect x="{lx}" y="{CAT_Y - 16}" width="18" '
+            out.append(f'    <rect x="{lx}" y="{LEGEND_Y - 16}" width="18" '
                        f'height="18" rx="3" fill="{color}"/>')
-            out.append(f'    <text x="{lx + 26}" y="{CAT_Y}" font-size="18" '
+            out.append(f'    <text x="{lx + 26}" y="{LEGEND_Y}" font-size="18" '
                        f'font-weight="600" fill="{INK_2}">{esc(s["name"])}</text>')
             lx += 34 + len(s["name"]) * 19
         out.append('  </g>')
@@ -254,14 +256,14 @@ def render_line(spec: dict) -> str:
 
     lx = PLOT_L
     # bounds 必须包住文字 ascender（CAT_Y=600, 18pt → 内容顶约 582），故顶边取 576
-    out.append('  <g id="legend" data-pptx-bounds="160 576 700 40">')
+    out.append('  <g id="legend" data-pptx-bounds="160 620 760 44">')
     for si, s in enumerate(series):
         color = s.get("color", colors[si % len(colors)])
-        out.append(f'    <line x1="{lx}" y1="{CAT_Y - 7}" x2="{lx + 34}" '
-                   f'y2="{CAT_Y - 7}" stroke="{color}" stroke-width="4" '
+        out.append(f'    <line x1="{lx}" y1="{LEGEND_Y - 7}" x2="{lx + 34}" '
+                   f'y2="{LEGEND_Y - 7}" stroke="{color}" stroke-width="4" '
                    f'stroke-linecap="round"/>')
-        out.append(f'    <circle cx="{lx + 17}" cy="{CAT_Y - 7}" r="6" fill="{color}"/>')
-        out.append(f'    <text x="{lx + 44}" y="{CAT_Y}" font-size="18" '
+        out.append(f'    <circle cx="{lx + 17}" cy="{LEGEND_Y - 7}" r="6" fill="{color}"/>')
+        out.append(f'    <text x="{lx + 44}" y="{LEGEND_Y}" font-size="18" '
                    f'font-weight="600" fill="{INK_2}">{esc(s["name"])}</text>')
         lx += 60 + len(s["name"]) * 19
     out.append('  </g>')
@@ -320,7 +322,185 @@ def render_bullet(spec: dict) -> str:
     return "\n".join(out) + "\n"
 
 
-RENDERERS = {"column": render_column, "line": render_line, "bullet": render_bullet}
+# ---------------------------------------------------------------------------
+# 4) dual_axis —— 双纵轴折线（两个量纲不同的指标共享时间轴）
+#    依据 charts_index: Pick for comparing 2 metrics with different units/scales
+# ---------------------------------------------------------------------------
+
+def render_dual_axis(spec: dict) -> str:
+    cats = spec["categories"]
+    left = spec["left"]        # {name, values, unit, color?}
+    right = spec["right"]      # {name, values, unit, color?}
+
+    c_l = left.get("color", PRIMARY)
+    c_r = right.get("color", RISK)
+    top_l = nice_max(max(left["values"]))
+    top_r = nice_max(max(right["values"]))
+    n = max(len(cats) - 1, 1)
+
+    def px(i): return PLOT_L + (PLOT_R - PLOT_L) * i / n
+    def py_l(v): return PLOT_B - (v / top_l) * (PLOT_B - PLOT_T)
+    def py_r(v): return PLOT_B - (v / top_r) * (PLOT_B - PLOT_T)
+
+    out = page_open(spec["title"], spec.get("subtitle", ""))
+    out.append(f'  <g id="chart-plot" data-pptx-bounds="60 130 1160 520">')
+    # 左轴网格（用左轴刻度）
+    out += gridlines(0, top_l)
+
+    # 左轴刻度标签染成左序列色、右轴染成右序列色，避免误读
+    out.append(f'    <text x="{PLOT_L - 16}" y="{PLOT_T - 18}" font-size="15" '
+               f'font-weight="600" fill="{c_l}" text-anchor="end">'
+               f'{esc(left.get("unit",""))}</text>')
+    out.append(f'    <text x="{PLOT_R + 16}" y="{PLOT_T - 18}" font-size="15" '
+               f'font-weight="600" fill="{c_r}" text-anchor="start">'
+               f'{esc(right.get("unit",""))}</text>')
+
+    for values, color, py in ((left["values"], c_l, py_l),
+                              (right["values"], c_r, py_r)):
+        pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(values))
+        out.append(f'    <polyline points="{pts}" fill="none" stroke="{color}" '
+                   f'stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>')
+        for i, v in enumerate(values):
+            out.append(f'    <circle cx="{px(i):.1f}" cy="{py(v):.1f}" r="7" '
+                       f'fill="{color}" stroke="#FFFFFF" stroke-width="2"/>')
+
+    # 右轴刻度（自上而下 4 档）
+    for k in range(5):
+        val = top_r * k / 4
+        y = PLOT_B - (PLOT_B - PLOT_T) * k / 4
+        out.append(f'    <text x="{PLOT_R + 16}" y="{y + 5:.0f}" font-size="14" '
+                   f'fill="{INK_2}" text-anchor="start">{esc(fmt(val))}</text>')
+
+    out += axis_lines()
+
+    for i, c in enumerate(cats):
+        out.append(f'    <text x="{px(i):.1f}" y="{CAT_Y}" font-size="20" '
+                   f'font-weight="600" fill="{INK}" text-anchor="middle">'
+                   f'{esc(c)}</text>')
+    out.append('  </g>')
+
+    # 图例（两序列，居中）
+    lx = PLOT_L
+    out.append('  <g id="legend" data-pptx-bounds="160 620 760 44">')
+    for nm, color in ((left["name"], c_l), (right["name"], c_r)):
+        out.append(f'    <line x1="{lx}" y1="{LEGEND_Y - 7}" x2="{lx + 34}" '
+                   f'y2="{LEGEND_Y - 7}" stroke="{color}" stroke-width="4" '
+                   f'stroke-linecap="round"/>')
+        out.append(f'    <circle cx="{lx + 17}" cy="{LEGEND_Y - 7}" r="6" fill="{color}"/>')
+        out.append(f'    <text x="{lx + 44}" y="{LEGEND_Y}" font-size="18" '
+                   f'font-weight="600" fill="{INK_2}">{esc(nm)}</text>')
+        lx += 60 + len(nm) * 19
+    out.append('  </g>')
+
+    out += note_line(spec.get("note", ""))
+    out += page_close()
+    return "\n".join(out) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# 5) progress —— 完成度条（3-8 项，每项一个百分比）
+#    依据 charts_index: Pick for 3-8 items each with a completion %
+# ---------------------------------------------------------------------------
+
+def render_progress(spec: dict) -> str:
+    items = spec["items"]        # [{name, pct, detail?}]
+    track_l, track_r = 430, 1090
+    y0 = 200
+    # 行高自适应：3-8 项都必须落在 [200, 640] 内（含 detail 行）
+    n = len(items)
+    row_h = min(86.0, (612 - y0) / max(n - 1, 1))
+
+    out = page_open(spec["title"], spec.get("subtitle", ""))
+    out.append('  <g id="chart-plot" data-pptx-bounds="60 130 1160 530">')
+
+    for i, it in enumerate(items):
+        cy = y0 + i * row_h
+        pct = it["pct"]
+        w = max(0.0, min(pct, 100.0)) / 100.0 * (track_r - track_l)
+        color = PRIMARY if pct >= 80 else (PRIMARY_2 if pct >= 50 else RISK)
+
+        out.append(f'    <text x="80" y="{cy}" font-size="22" font-weight="600" '
+                   f'fill="{INK}">{esc(it["name"])}</text>')
+        if it.get("detail"):
+            out.append(f'    <text x="80" y="{cy + 26}" font-size="16" '
+                       f'fill="{INK_2}">{esc(it["detail"])}</text>')
+        out.append(f'    <rect x="{track_l}" y="{cy - 20}" width="{track_r-track_l}" '
+                   f'height="28" rx="4" fill="{PANEL}"/>')
+        out.append(f'    <rect x="{track_l}" y="{cy - 20}" width="{w:.1f}" '
+                   f'height="28" rx="4" fill="{color}"/>')
+        out.append(f'    <text x="{track_r + 24}" y="{cy + 4}" font-size="22" '
+                   f'font-weight="700" fill="{color}">{pct:.0f}%</text>')
+
+    out.append('  </g>')
+    out += note_line(spec.get("note", ""))
+    out += page_close()
+    return "\n".join(out) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# 6) area —— 面积折线（强调累积量级）
+#    依据 charts_index: Pick for 1-2 cumulative trend series emphasizing volume
+# ---------------------------------------------------------------------------
+
+def render_area(spec: dict) -> str:
+    cats = spec["categories"]
+    series = spec["series"]
+    colors = spec.get("colors", [PRIMARY, PRIMARY_2])
+
+    n = len(cats)
+    allv = [v for s in series for v in s["values"]]
+    top = nice_max(max(allv))
+    n_ = max(n - 1, 1)
+
+    def px(i): return PLOT_L + (PLOT_R - PLOT_L) * i / n_
+    def py(v): return PLOT_B - (v / top) * (PLOT_B - PLOT_T)
+
+    out = page_open(spec["title"], spec.get("subtitle", ""))
+    out.append(f'  <g id="chart-plot" data-pptx-bounds="60 130 1160 520">')
+    out += gridlines(0, top)
+
+    for si, s in enumerate(series):
+        color = s.get("color", colors[si % len(colors)])
+        pts = [(px(i), py(v)) for i, v in enumerate(s["values"])]
+        poly = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+        # 面积：折线 + 回到基线的闭合多边形
+        area = (f"{PLOT_L:.1f},{PLOT_B:.1f} " + poly
+                + f" {pts[-1][0]:.1f},{PLOT_B:.1f}")
+        out.append(f'    <polygon points="{area}" fill="{color}" fill-opacity="0.12" '
+                   f'stroke="none"/>')
+        out.append(f'    <polyline points="{poly}" fill="none" stroke="{color}" '
+                   f'stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>')
+        for x, y in pts:
+            out.append(f'    <circle cx="{x:.1f}" cy="{y:.1f}" r="6" '
+                       f'fill="{color}" stroke="#FFFFFF" stroke-width="2"/>')
+
+    out += axis_lines()
+
+    for i, c in enumerate(cats):
+        out.append(f'    <text x="{px(i):.1f}" y="{CAT_Y}" font-size="20" '
+                   f'font-weight="600" fill="{INK}" text-anchor="middle">'
+                   f'{esc(c)}</text>')
+    out.append('  </g>')
+
+    lx = PLOT_L
+    out.append('  <g id="legend" data-pptx-bounds="160 620 760 44">')
+    for si, s in enumerate(series):
+        color = s.get("color", colors[si % len(colors)])
+        out.append(f'    <rect x="{lx}" y="{LEGEND_Y - 16}" width="18" height="18" '
+                   f'rx="3" fill="{color}" fill-opacity="0.35" stroke="{color}"/>')
+        out.append(f'    <text x="{lx + 26}" y="{LEGEND_Y}" font-size="18" '
+                   f'font-weight="600" fill="{INK_2}">{esc(s["name"])}</text>')
+        lx += 34 + len(s["name"]) * 19
+    out.append('  </g>')
+
+    out += note_line(spec.get("note", ""))
+    out += page_close()
+    return "\n".join(out) + "\n"
+
+
+RENDERERS = {"column": render_column, "line": render_line, "bullet": render_bullet,
+             "dual_axis": render_dual_axis, "progress": render_progress,
+             "area": render_area}
 
 
 # ---------------------------------------------------------------------------

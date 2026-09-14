@@ -37,10 +37,10 @@ def main(outdir: str) -> int:
         "副标题": "聚焦增长质量与组织效率的年度复盘",
         "汇报单位": "经营分析中心",
         "周期": "2025 年度",
+        # T-FIX4 后 bold-mark 已槽位化，不再需要 retag_group 兜底
+        "标识": "经营分析",
+        "标识说明": "年度述职报告",
     })
-    # bold-mark 组是**无槽位标记**的示例品牌字（原为 T-03 的 "KB"/"知识库平台建设方案"），
-    # 必须显式清洗，否则会原样泄漏进产物（本轮实测踩到）。
-    deckfill.retag_group(P(1), "bold-mark", ["经营分析", "年度述职报告"])
     _assert_clean(P(1))
 
     # P02 导览
@@ -56,18 +56,19 @@ def main(outdir: str) -> int:
     # P03 KPI 总览（数字大字报）
     skel(3, "v0/kpi-hero.svg", {
         "页面标题": "四项核心指标：三项达成，一项接近",
+        "值1": "104%",
         "指标一名称": "营业收入完成率",
         "指标一说明": "年度目标 6000 万元，实际达成 104%",
+        "值2": "109%",
         "指标二名称": "净利润完成率",
         "指标二说明": "年度目标 1500 万元，实际达成 109%",
+        "值3": "97%",
         "指标三名称": "人均产出达成率",
         "指标三说明": "年度目标 120 万元，实际达成 97%",
         "结论标题": "总体评价",
         "结论文本": ["经营质量持续改善，净利润增速高于收入增速；",
                      "人均产出为唯一未达标项，列入明年重点改进。"],
     })
-    # 数字槽位（骨架直接以 88%/156/99.4% 为示例值，无【】标记）
-    _set_raw_digits(P(3), ["104%", "109%", "97%"])
 
     # P04 亮点项目（三卡）
     skel(4, "v1/three-card.svg", {
@@ -197,18 +198,6 @@ def _assert_clean(path: str) -> None:
     leaks = [w for w in ("知识库", ">KB<", "信息化建设部") if w in svg]
     if leaks:
         raise AssertionError(f"{path}: 残留示例内容 {leaks}")
-
-
-def _set_raw_digits(path: str, values) -> None:
-    """kpi-hero 骨架的三个数字是裸文本（无【】标记），按出现顺序替换。"""
-    import re
-    with open(path, encoding="utf-8") as f:
-        svg = f.read()
-    pat = re.compile(r'(font-size="96"[^>]*>)([^<]+)(</text>)')
-    it = iter(values)
-    svg = pat.sub(lambda m: m.group(1) + next(it) + m.group(3), svg)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(svg)
 
 
 if __name__ == "__main__":
