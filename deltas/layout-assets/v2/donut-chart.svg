@@ -13,7 +13,7 @@
             stroke-dasharray="502 1005" transform="rotate(-90 360 380)"/>
     <circle cx="360" cy="380" r="160" fill="none" stroke="#4A6FD4" stroke-width="56"
             stroke-dasharray="251 1256" transform="rotate(90 360 380)"/>
-    <text x="360" y="368" font-size="56" font-weight="700" fill="#0A0A0A" text-anchor="middle">80 万</text>
+    <text x="360" y="368" font-size="56" font-weight="700" fill="#0A0A0A" text-anchor="middle">【中心值】80 万</text>
     <text x="360" y="410" font-size="20" font-weight="600" fill="#737373" text-anchor="middle">【中心标签】总预算</text>
   </g>
   <g id="donut-legend" data-pptx-bounds="660 240 520 280">

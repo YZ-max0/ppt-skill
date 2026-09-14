@@ -10,13 +10,13 @@
   <g id="step-flow" data-pptx-bounds="80 200 1120 230">
     <rect x="80" y="300" width="1120" height="6" fill="#E2E8F0"/>
     <circle cx="200" cy="303" r="18" fill="#002FA7"/>
-    <text x="184" y="311" font-size="18" font-weight="700" fill="#FFFFFF">1</text>
+    <text x="184" y="311" font-size="18" font-weight="700" fill="#FFFFFF">【步骤一序号】1</text>
     <circle cx="530" cy="303" r="18" fill="#002FA7"/>
-    <text x="514" y="311" font-size="18" font-weight="700" fill="#FFFFFF">2</text>
+    <text x="514" y="311" font-size="18" font-weight="700" fill="#FFFFFF">【步骤二序号】2</text>
     <circle cx="860" cy="303" r="18" fill="#002FA7"/>
-    <text x="844" y="311" font-size="18" font-weight="700" fill="#FFFFFF">3</text>
+    <text x="844" y="311" font-size="18" font-weight="700" fill="#FFFFFF">【步骤三序号】3</text>
     <circle cx="1020" cy="303" r="18" fill="#E2E8F0"/>
-    <text x="1004" y="311" font-size="18" font-weight="700" fill="#737373">4</text>
+    <text x="1004" y="311" font-size="18" font-weight="700" fill="#737373">【步骤四序号】4</text>
     <text x="150" y="380" font-size="20" font-weight="600" fill="#0A0A0A">【步骤一标题】输入关键词</text>
     <text x="150" y="412" font-size="16" fill="#737373">【步骤一说明】支持按标题与正文检索</text>
     <text x="480" y="380" font-size="20" font-weight="600" fill="#0A0A0A">【步骤二标题】权限内筛选</text>

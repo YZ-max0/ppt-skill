@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
      data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
   <g id="page-bg" data-pptx-bounds="0 0 1280 720">
     <rect width="1280" height="720" fill="#FFFFFF"/>
@@ -7,14 +7,14 @@
     <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】三项核心指标均达成年度目标</text>
     <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
   </g>
-  <g id="kpi-row" data-pptx-bounds="80 180 1120 270">
-    <text x="80" y="320" font-size="96" font-weight="700" fill="#002FA7">88%</text>
+  <g id="kpi-row" data-pptx-bounds="80 180 1200 270">
+    <text x="80" y="320" font-size="96" font-weight="700" fill="#002FA7">【值1】</text>
     <text x="80" y="380" font-size="22" font-weight="600" fill="#0A0A0A">【指标一名称】年度目标完成率</text>
     <text x="80" y="415" font-size="16" fill="#737373">【指标一说明】较上一年度提升十二个百分点</text>
-    <text x="490" y="320" font-size="96" font-weight="700" fill="#002FA7">156</text>
+    <text x="490" y="320" font-size="96" font-weight="700" fill="#002FA7">【值2】</text>
     <text x="490" y="380" font-size="22" font-weight="600" fill="#0A0A0A">【指标二名称】累计交付项目数</text>
     <text x="490" y="415" font-size="16" fill="#737373">【指标二说明】覆盖六个业务条线与全部重点场景</text>
-    <text x="860" y="320" font-size="96" font-weight="700" fill="#002FA7">99.4%</text>
+    <text x="860" y="320" font-size="96" font-weight="700" fill="#002FA7">【值3】</text>
     <text x="860" y="380" font-size="22" font-weight="600" fill="#0A0A0A">【指标三名称】服务可用性</text>
     <text x="860" y="415" font-size="16" fill="#737373">【指标三说明】全年无重大故障</text>
   </g>

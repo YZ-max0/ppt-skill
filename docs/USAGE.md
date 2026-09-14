@@ -48,6 +48,20 @@ python <vendor>\scripts\project_manager.py init <项目名> `
 > ```
 > 或直接查 `v0/CONTRACT.md` §3 的逐槽位清单（含坐标与字号上限）。
 
+#### 🧹 填充后追加：骨架卫生检查（T-FIX4 / C-011）
+
+```powershell
+python deltas\layout-assets\check_hygiene.py "<项目>\svg_output"
+```
+
+**退出码 `0` 才继续**（`2` = 发现骨架示例内容泄漏）。
+
+> **为什么必须跑**：骨架里可能有**无 `【】` 标记**的示例内容（品牌字、示例数字、
+> 示意标签）。填充只替换槽位 → 这些内容被原样带进交付物。它们在几何上完全合法，
+> **`svg_quality_checker` 与 D-2 都拦不住**——真实事故 C-011 就是这样让 T-03 的品牌字
+> `KB` 出现在 T-02 封面上。检查器的原理、词表与预防规则见
+> [`deltas/layout-assets/HYGIENE.md`](../deltas/layout-assets/HYGIENE.md)。
+
 **你会看到**：`svg_output/` 下每个文件是一个完整页面（1280×720）。
 
 ### 2.3 质量门（全部路线）

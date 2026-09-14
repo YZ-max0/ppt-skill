@@ -18,9 +18,9 @@
     <text x="240" y="520" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【点一】投入</text>
     <text x="560" y="520" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【点二】第一年</text>
     <text x="1040" y="520" font-size="22" font-weight="600" fill="#0A0A0A" text-anchor="middle">【点三】第二年</text>
-    <text x="240" y="446" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">80 万</text>
-    <text x="560" y="336" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">35 万</text>
-    <text x="1040" y="191" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">10 万</text>
+    <text x="240" y="446" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">【点1值】</text>
+    <text x="560" y="336" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">【点2值】</text>
+    <text x="1040" y="191" font-size="24" font-weight="700" fill="#002FA7" text-anchor="middle">【点3值】</text>
   </g>
   <g id="line-note" data-pptx-bounds="120 580 1080 90">
     <text x="120" y="630" font-size="18" fill="#737373">【图表说明】累计净投入随节省逐年下降，约一年八个月转正</text>

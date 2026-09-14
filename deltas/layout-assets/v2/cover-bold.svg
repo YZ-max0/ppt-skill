@@ -17,7 +17,7 @@
     <text x="560" y="600" font-size="22" fill="#737373"><tspan x="560" dy="0">【汇报单位】信息化建设部</tspan><tspan x="560" dy="40">【周期】2026 年度</tspan></text>
   </g>
   <g id="bold-mark" data-pptx-bounds="80 560 360 100">
-    <text x="80" y="620" font-size="56" font-weight="700" fill="#FFFFFF">KB</text>
-    <text x="80" y="652" font-size="18" fill="#E2E8F0">知识库平台建设方案</text>
+    <text x="80" y="620" font-size="56" font-weight="700" fill="#FFFFFF">【标识】KB</text>
+    <text x="80" y="652" font-size="18" fill="#E2E8F0">【标识说明】知识库平台建设方案</text>
   </g>
 </svg>
