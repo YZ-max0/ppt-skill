@@ -172,6 +172,13 @@ python <vendor>\scripts\svg_quality_checker.py <proj> --quick-generate --stage f
 | 类型 | `charts_index` 规则 | 关键几何 |
 |---|---|---|
 | `column` | Pick for single-series category … 3-8 categories | 柱高 = 值/nice_max × 370 |
+
+> ⚠️ **命名偏差（C-017）**：本工具的 `column` 渲染器**支持多序列并排**，但这**不等同**于 base 的 `grouped_bar_chart` 模板——
+> base 把它们分成两个模板：`column_chart`（单序列）与 `grouped_bar_chart`（多序列），而 `charts_index.json` 对 `column_chart` 明确写 *Skip for … multi-series (use grouped_bar_chart)*。
+> 
+> **选型时仍应按契约优先选 `grouped_bar`**；本渲染器的多序列能力只是实现上的合并，不构成选型依据。
+> 建议后续拆名为 `column`（单序列）与 `grouped_bar`（多序列），与 base 一一对应。
+
 | `line` | Pick for 1-3 time-series … showing direction | 点均匀分布；末点标注 |
 | `bullet` | Pick for 3-7 KPIs with explicit target + actual | 轨道满宽 = 目标×1.25；目标标尺 |
 | `dual_axis` | Pick for 2 metrics with **different units/scales** | 左右两套刻度；右轴刻度另绘 |

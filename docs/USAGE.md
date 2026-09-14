@@ -62,6 +62,21 @@ python deltas\layout-assets\check_hygiene.py "<项目>\svg_output"
 > `KB` 出现在 T-02 封面上。检查器的原理、词表与预防规则见
 > [`deltas/layout-assets/HYGIENE.md`](../deltas/layout-assets/HYGIENE.md)。
 
+#### 🔍 填充后追加：跨组重叠检查（T-FIX5 / C-015）
+
+```powershell
+python deltas\layout-assets\check_overlap.py "<项目>\svg_output"
+```
+
+**退出码 `0` 才继续**（`2` = 发现跨组重叠）。
+编排建议：**③ 导演式必跑；①② 推荐**。
+
+> **为什么必须跑**：`check_hygiene` 管内容、`svg_quality_checker` 管几何，
+> 但**单组几何合法、跨组整体冲突**无人管——C-015 就是图例组与图表组
+> 同在 `y=600`，两边 bounds 各自合法，checker 报 `blocking: 0`，只能靠人眼看 contact sheet 发现。
+> 原理、判据与豁免机制见
+> [`deltas/layout-assets/OVERLAP.md`](../deltas/layout-assets/OVERLAP.md)。
+
 **你会看到**：`svg_output/` 下每个文件是一个完整页面（1280×720）。
 
 ### 2.3 质量门（全部路线）
