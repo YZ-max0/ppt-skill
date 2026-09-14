@@ -127,17 +127,26 @@ PowerPoint 内显示正常，但**下游若做纯文本解析/比对需自行按
 
 现象：命令输出 "Project created: ..." 看起来成功，但 `find <dir>` 找不到项目。
 
-可靠写法（二选一）：
+可靠写法（**首选方案 A，实测最稳**）：
 
 ```powershell
-# 方案 A：用 Set-Location（-LiteralPath 应对含空格/中文路径）
-Set-Location -LiteralPath 'D:\...\workdir'
-python 'D:\...\vendor-ppt-master\scripts\project_manager.py' init foo --format ppt169 --quick-generate
+# 方案 A（推荐）：用 init 的 --dir 直接指定基目录 —— 不依赖 CWD，最可靠
+python 'D:\...\vendor-ppt-master\scripts\project_manager.py' init foo `
+    --dir 'C:\Users\EDY\AppData\Local\Temp\opencode\mywork' `
+    --format ppt169 --quick-generate
 
-# 方案 B：不依赖工作目录，接受默认 projects 根并在该根下继续作业
+# 方案 B：Set-Location 后再 init（-LiteralPath 应对含空格/中文路径）
+#   ⚠️ 实测不可靠：若目标目录不存在，Set-Location 静默失败，init 仍落到默认根
+Set-Location -LiteralPath 'D:\...\workdir'
 python '...\project_manager.py' init foo --format ppt169 --quick-generate
-# 然后用实际输出路径（命令会打印绝对路径）继续后续步骤
+
+# 方案 C：不依赖工作目录，接受默认 projects 根（`Temp\opencode\projects\`）后继续
+python '...\project_manager.py' init foo --format ppt169 --quick-generate
 ```
+
+> **T-M2B-R1 R5 更新**：`--dir` 参数在两次独立实测中均可靠，
+> 而 `Set-Location` 在"目标目录不存在"时**静默失败**且 init 仍报成功（落到默认根）。
+> 自动化脚本请一律使用 **方案 A（`--dir`）**。
 
 **建议**：任何自动化脚本都应从 init 的**输出中解析项目绝对路径**，不要假设它落在预期目录。
 

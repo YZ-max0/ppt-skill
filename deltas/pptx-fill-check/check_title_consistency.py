@@ -108,6 +108,35 @@ def is_bucket_tier(tier: str) -> bool:
 
 SEQ_MAX_LEN = 4      # "01", "1.", "(3)", "A", "IV"
 SHORT_MAX_VW = 5.0   # CJK <=5 chars (or equivalent visual width)
+VALUE_MAX_VW = 8.0   # value tokens are short but wider than labels ("40 万")
+
+
+def _looks_like_value(t: str) -> bool:
+    """True for a numeric value token, optionally with a unit.
+
+    Matches the "number + optional unit" shape used by data labels:
+    ``40 万``, ``15 秒``, ``1.8 年``, ``99.4%``, ``80``, ``156``, ``1.8``.
+    A plain number is already caught by ``seq`` earlier, so ``value`` mainly
+    covers the number-plus-unit form that ``seq`` rejects due to the space or
+    the unit characters.
+    """
+    if not t:
+        return False
+    # strip a trailing ASCII/CJK unit-ish token, then test the leading number
+    core = t.strip()
+    # allow an optional leading sign/marker and a trailing unit (1-3 chars)
+    import re as _re
+    m = _re.match(r"^[+\-]?[0-9]+(?:\.[0-9]+)?\s*(.*)$", core)
+    if not m:
+        return False
+    unit = m.group(1).strip()
+    # unit must be short (a symbol or 1-2 CJK/ASCII chars), not a sentence
+    if len(unit) > 2:
+        return False
+    # reject pure prose that merely starts with a digit-heavy word
+    if any(ch in unit for ch in "，。；：、,.;:"):
+        return False
+    return True
 
 
 def classify_subtier(text: str) -> str:
@@ -119,6 +148,8 @@ def classify_subtier(text: str) -> str:
 
     ``seq``   — a numbering token: pure digits/letters, length <= SEQ_MAX_LEN
                 (``01``, ``1.``, ``(3)``, ``A``). Card/section numbering.
+    ``value`` — a numeric value token, optionally with a short unit
+                (``40 万``, ``1.8 年``, ``99.4%``, ``156``). Data labels.
     ``short`` — a non-numbering short label, visual width <= SHORT_MAX_VW
                 (``风险``, ``对策``, ``验收标准``). Card titles and tags.
     ``long``  — everything else: subtitles and explanatory sentences.
@@ -126,6 +157,12 @@ def classify_subtier(text: str) -> str:
     The subtier is a *heuristic*, not a semantic role. It deliberately only
     splits within one font-size bucket, so it cannot create or hide a
     cross-bucket finding.
+
+    **Hard stop-loss**: this is the third and final feature-based refinement
+    (FIX2 tiers -> FIX3 subtiers -> this ``value`` class). If any free-design
+    false positive appears after this, the feature approach is abandoned and
+    the checker switches to the "page-main-title channel" (compare each page's
+    largest-font text across pages) instead of extending the taxonomy again.
     """
     t = (text or "").strip()
     if not t:
@@ -138,6 +175,9 @@ def classify_subtier(text: str) -> str:
         if stripped and stripped.isascii() and stripped.isalnum():
             if stripped.isdigit() or stripped.isalpha():
                 return "seq"
+    # --- value: numeric value token (number + optional short unit) ---
+    if vw_of(t) <= VALUE_MAX_VW and _looks_like_value(t):
+        return "value"
     # --- short: brief label ---
     if vw_of(t) <= SHORT_MAX_VW:
         return "short"
@@ -281,6 +321,38 @@ def collect_titles(pptx_path: Path, size_bucket_gap: float = SIZE_BUCKET_GAP_DEF
     return titles
 
 
+def main_title_channel(titles):
+    """Return per-page main-title entries for the fallback judgment path.
+
+    **Why this exists (T-M2B-R1 R4, hard stop-loss)**: the text-feature subtier
+    approach (FIX2 tiers -> FIX3 subtiers -> R1 ``value`` class) was given three
+    chances and still produced free-design false positives on a real deck
+    (t03-v2 P19: chart entry names at 21pt vs chart entry values at 18pt were
+    split into ``long``/``short`` but the per-subtier population was too small
+    to have a dominant size, so both were reported). Per the stop-loss rule the
+    feature taxonomy is abandoned for the free-design path and replaced by this
+    simpler, more robust channel: each page contributes exactly ONE entry --
+    its largest-font title candidate -- and those per-page main titles are then
+    compared with each other (same-page spread plus cross-page deviation).
+
+    This trades sensitivity (a smaller non-main title drifting is no longer
+    detected) for a large reduction in false positives: it never compares two
+    different text roles on the same page.
+    """
+    by_page = defaultdict(list)
+    for t in titles:
+        if not is_bucket_tier(t["tier"]):
+            continue
+        by_page[t["slide"]].append(t)
+    picked = []
+    for slide, group in by_page.items():
+        # main title = largest font size on the page; ties resolved by the
+        # shorter text (labels beat sentences at the same size)
+        best = sorted(group, key=lambda x: (-x["size_pt"], len(x["text"])))[0]
+        picked.append(best)
+    return picked
+
+
 def detect(titles, dominance_min: float = DOMINANCE_MIN):
     """Return list of P1 findings.
 
@@ -290,9 +362,15 @@ def detect(titles, dominance_min: float = DOMINANCE_MIN):
     """
     findings = []
 
+    # --- T-M2B-R1 R4 hard stop-loss: free-design path uses the main-title
+    # channel instead of the text-feature taxonomy. Placeholder roles are
+    # ground truth and keep their exact original judgment below.
+    ph_titles = [t for t in titles if not is_bucket_tier(t["tier"])]
+    fd_main = main_title_channel(titles)
+
     # --- same-page same-tier spread ---
     by_page_tier = defaultdict(list)
-    for t in titles:
+    for t in ph_titles + fd_main:
         by_page_tier[(t["slide"], t["tier"])].append(t)
 
     for (slide, tier), group in by_page_tier.items():
@@ -351,7 +429,7 @@ def detect(titles, dominance_min: float = DOMINANCE_MIN):
         for sh in f.get("shapes", [])
     }
     tier_sizes = defaultdict(list)
-    for t in titles:
+    for t in ph_titles + fd_main:
         tier_sizes[t["tier"]].append(t["size_pt"])
 
     for tier, sizes in tier_sizes.items():
