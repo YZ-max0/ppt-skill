@@ -10,7 +10,7 @@
 
 ### A.1 顶层 `LICENSE`
 
-MIT 全文，版权行为 `Copyright (c) 2026 <USER_NAME>` —— **占位符待用户填入**（见 §用户待办）。
+MIT 全文，版权行为 `Copyright (c) 2026 YZ-max0`（**已填入**，2026-09-14）。
 
 ### A.2 `THIRD-PARTY-NOTICES.md`（新建，65 行）
 
@@ -222,25 +222,21 @@ README 行数：**65**（卡要求"保持现有 55 行结构不变，仅加简�
 
 ## 用户待办（需要你执行）
 
-### 1. 填入版权名
+### 1. ~~填入版权名~~ ✅ 已完成
 
-`LICENSE` 第 3 行当前为占位符：
+`LICENSE` 第 3 行已填入：
 
 ```
-Copyright (c) 2026 <USER_NAME>
+Copyright (c) 2026 YZ-max0
 ```
 
-请替换 `<USER_NAME>` 为你的名字或组织名（也可用 GitHub 用户名）。
+### 2. push ✅ 已完成（2026-09-14，经代理 7897）
 
-### 2. push（本卡不做）
-
-```bash
-# 在 repo 目录执行（凭据由你提供）
-git remote add origin <your-repo-url>
-git push -u origin main
+```text
+仓库：https://github.com/YZ-max0/ppt-skill（Private，20 commits，main）
 ```
 
-### 3. push 后验证清单（**务必执行**）
+### 3. push 后验证清单（**已由执行者完成，见下**）
 
 | # | 检查 | 预期 |
 |---|---|---|
