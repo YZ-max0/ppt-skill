@@ -17,6 +17,8 @@
 | **快速通道** | ≤8 页、时效紧、内容现成 | 跳过 spec/lock 与确认门，选骨架直接填充 |
 | **导演式** | 重要汇报、≥10 页、需要"想清楚" | A 受众卡 → B 逐页导演稿 → **B2 视觉导演（硬门禁）** → C 映射生成 |
 
+按**质量需求**选流程（三档 + 耗时对照 + 校验门）→ **`docs/QUALITY-TIERS.md`**
+
 路线裁决规则见 `deltas/director.md` §1。
 
 ## 快速上手 5 步
@@ -39,6 +41,7 @@
 | `deltas/pptx-fill-check/` | 质检工具：出框检测 + 标题一致性 |
 | `deltas/render-preview/` | 渲染管线：pptx → PNG + contact sheet |
 | `tests/test-sets/v1/` | 测试集 v1（6 个典型输入） |
+| `docs/QUALITY-TIERS.md` | **质量档位选择**（快速/标准/导演式，含校验门与耗时） |
 | `docs/` | 使用手册、环境注意、各阶段报告 |
 | `tasks/` · `docs/decisions.md` | 任务卡与裁决记录（维护者用） |
 
