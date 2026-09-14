@@ -46,7 +46,11 @@ from xml.etree import ElementTree as ET
 # ---------------------------------------------------------------------------
 DEFAULT_TERMS = [
     # —— v2/cover-bold（C-011 源头：T-03 知识库平台方案）——
-    "知识库平台建设方案", "知识库", "KB",
+    # 注意：只收**完整短语**，不收通用领域名词。
+    # 教训（T-E2E5）：曾收录 "知识库" 一词，导致 AI 客服 BP 里
+    # "接入企业自有知识库" 被误报 —— 词表须是"只可能来自骨架示例"的短语，
+    # 通用业务名词（知识库 / 平台 / 系统 / 数据）一律不得入表。
+    "知识库平台建设方案", "KB",
     # —— v0/kpi-hero 初版裸示例值 ——
     "99.4%",
     # —— v2/evidence-wall 示例证据 ——
@@ -63,6 +67,30 @@ DEFAULT_TERMS = [
     # —— v1 知识库语境示例 ——
     "统一检索层", "权限控制与知识沉淀",
 ]
+
+# 通用业务名词 —— **禁止**进入词表。
+# 理由：词表的判据是"只可能来自骨架示例"，而通用名词在任何真实 deck 里都可能出现，
+# 一旦入表就会产生误报（T-E2E5 实测："知识库" 让 AI 客服 BP 误报）。
+GENERIC_DENYLIST = {
+    "知识库", "平台", "系统", "数据", "方案", "客户", "服务", "产品",
+    "团队", "市场", "预算", "成本", "收入", "目标", "指标", "架构",
+    "流程", "模块", "功能", "权限", "检索", "平台建设", "信息化",
+}
+
+
+def _assert_wordlist_sane(terms: list) -> list:
+    """返回词表里误入的通用名词（用于报警，不阻断运行）。"""
+    bad = []
+    for t in terms:
+        if t in GENERIC_DENYLIST:
+            bad.append(t)
+        else:
+            # 词条若**等于**某个通用名词，或过短（<3 且非缩写），也可疑
+            for g in GENERIC_DENYLIST:
+                if t == g:
+                    bad.append(t)
+    return sorted(set(bad))
+
 
 # 结构性白名单：骨架的固有设计元素，不算泄漏
 STRUCTURAL_OK = {
@@ -153,6 +181,13 @@ def main(argv=None) -> int:
     if a.wordlist:
         with open(a.wordlist, encoding="utf-8") as f:
             terms = [l.strip() for l in f if l.strip() and not l.startswith("#")]
+
+    # 词表卫生：通用名词入表会造成误报（T-E2E5 教训），此处报警
+    bad_terms = _assert_wordlist_sane(terms)
+    if bad_terms:
+        print(f"[WARN] 词表含通用名词，易误报：{bad_terms}", file=sys.stderr)
+        if a.skeleton_mode:
+            print("[WARN] 骨架模式下不阻断；建议改收完整短语。", file=sys.stderr)
 
     files = sorted(glob.glob(os.path.join(a.svg_dir, "**", "*.svg"), recursive=True))
     if not files:

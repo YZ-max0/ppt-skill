@@ -184,6 +184,25 @@ python <vendor>\scripts\svg_quality_checker.py <proj> --quick-generate --stage f
 | `dual_axis` | Pick for 2 metrics with **different units/scales** | 左右两套刻度；右轴刻度另绘 |
 | `progress` | Pick for 3-8 items each with a **completion %** | 行高自适应，8 项也落在画布内 |
 | `area` | Pick for 1-2 **cumulative** trend series emphasizing volume | 折线 + 闭合多边形 |
+| `waterfall` | Pick for stepwise additive/subtractive breakdown bridging start→end. **Skip if no running total** | 逐项累计 running total；柱高 = |终-始| |
+| `funnel` | Pick for 3-5 sequential conversion stages whose values drive a **monotonic drop-off** | 逐段收窄；窄段数值标签外移 |
+| `grouped_bar` | Pick for 2-4 series **side-by-side** across the same categories | 同 `column`（C-017 拆名后对齐 base 语义） |
+
+> **类型总数：9 个**（column / grouped_bar / line / area / dual_axis / bullet / progress / waterfall / funnel）。
+
+### ⚠️ 渲染器几何陷阱（T-E2E5 实测，三个都靠人眼发现）
+
+| 编号 | 陷阱 | 正确做法 |
+|---|---|---|
+| **C-019** | **逆向指标被画成"超额完成"**：`获客成本回收周期`目标 9 个月、实际 11 个月（未达标），却渲染成蓝色 122%，与标题"一项需加速"直接矛盾 | 数据项加 `lower_is_better: True`；达成率换算为 `目标/实际`，使 **>100% 恒为超额、<100% 恒为未达标** |
+| **C-020** | **waterfall 柱体塌成一条线**：`py()` 把大值映射为小 y，写成 `h = y1 - y0`（先 min 后 max）恒为**负高度**，`max(...,3)` 又把所有柱子压成 3px | 上边 = `py(较大值)`、下边 = `py(较小值)`，`h = bot - top`；**屏幕坐标 y 向下增大，凡求高度都要先想清方向** |
+| **C-021** | **funnel 窄段数值压住斜边**：末段只有 384，白字照样居中 → 溢出段外 | 先算 `vw_of(值) × 字号`，**超过段宽就把标签移到左侧外部**，并同步放宽 group bounds |
+
+> **共性**：三个都是**几何合法但语义/视觉错误**——checker、D-2、hygiene、overlap **四道闸全部拦不住**
+> （元素都在各自 bounds 内、互不重叠）。三个均**由渲染后人工看图发现**。
+> 这再次印证：**自动化闸门只能证明"没违反已知规则"，不能证明"画对了"**。
+
+
 
 > 选型务必**逐条对照规则原文**，不要按直觉。T-E2E4 的完整选型理由表见
 > `docs/e2e-04-report.md` §2（含一处与契约措辞的偏差记录 C-017）。

@@ -81,6 +81,27 @@ def fmt(v: float) -> str:
     return f"{v:,.1f}"
 
 
+def vw_of(text: str) -> float:
+    """视觉宽度（vw 单位），口径同 deltas/pptx-fill-check/capacity.py。
+
+    CJK/全角 = 1.0，ASCII = 0.5，空格 = 0.35，其他 = 0.8。
+    用于判断"文本放不放得下"（如漏斗窄段）。
+    """
+    w = 0.0
+    for ch in text:
+        if ("\u4e00" <= ch <= "\u9fff"
+                or "\u3000" <= ch <= "\u303f"
+                or "\uff00" <= ch <= "\uffef"):
+            w += 1.0
+        elif ch == " ":
+            w += 0.35
+        elif ch.isascii():
+            w += 0.5
+        else:
+            w += 0.8
+    return w
+
+
 # ---------------------------------------------------------------------------
 # SVG 骨架
 # ---------------------------------------------------------------------------
@@ -160,8 +181,9 @@ def render_column(spec: dict) -> str:
     bar_w = min(78.0, group_w / m)
 
     out = page_open(spec["title"], spec.get("subtitle", ""))
-    out.append(f'  <g id="chart-plot" data-pptx-bounds="{PLOT_L-60} {PLOT_T-30} '
-               f'{PLOT_R-PLOT_L+80} {PLOT_B-PLOT_T+90}">')
+    # 左边界须容纳最宽的 Y 轴刻度标签（如 25,000 → 左伸约 48px），故留 80px
+    out.append(f'  <g id="chart-plot" data-pptx-bounds="{PLOT_L-80} {PLOT_T-30} '
+               f'{PLOT_R-PLOT_L+100} {PLOT_B-PLOT_T+90}">')
     out += gridlines(0, top)
 
     for si, s in enumerate(series):
@@ -224,8 +246,9 @@ def render_line(spec: dict) -> str:
     def py(v): return PLOT_B - (v / top) * (PLOT_B - PLOT_T)
 
     out = page_open(spec["title"], spec.get("subtitle", ""))
-    out.append(f'  <g id="chart-plot" data-pptx-bounds="{PLOT_L-60} {PLOT_T-30} '
-               f'{PLOT_R-PLOT_L+80} {PLOT_B-PLOT_T+90}">')
+    # 左边界须容纳最宽的 Y 轴刻度标签（如 25,000 → 左伸约 48px），故留 80px
+    out.append(f'  <g id="chart-plot" data-pptx-bounds="{PLOT_L-80} {PLOT_T-30} '
+               f'{PLOT_R-PLOT_L+100} {PLOT_B-PLOT_T+90}">')
     out += gridlines(0, top)
 
     for si, s in enumerate(series):
@@ -290,18 +313,32 @@ def render_bullet(spec: dict) -> str:
     for i, it in enumerate(items):
         cy = y0 + i * row_h
         target, actual = it["target"], it["actual"]
-        pct = actual / target * 100 if target else 0
-        # 轨道按"目标值的 1.25 倍"作满宽，目标标尺落在 80% 处
-        full = target * 1.25
+        # lower_is_better：逆向指标（如"获客成本回收周期""故障恢复时长"），
+        # 实际值**小于**目标才算达标。T-E2E5 / C-019 教训：若不区分方向，
+        # 逆向指标会被画成蓝色"超额完成"，与标题"一项需改进"直接矛盾。
+        lower_better = bool(it.get("lower_is_better"))
+        ok = (actual <= target) if lower_better else (actual >= target)
+        # 达成率统一为"目标/实际"（逆向）或"实际/目标"（正向），
+        # 使 >100% 恒表示"超额完成"、<100% 恒表示"未达标"，四行可直接比较。
+        if lower_better:
+            pct = target / actual * 100 if actual else 0
+        else:
+            pct = actual / target * 100 if target else 0
+
+        # 轨道满宽：取"目标"与"实际"中较大者的 1.25 倍，保证标尺与条都在轨内
+        anchor_val = max(target, actual) if lower_better else target
+        full = anchor_val * 1.25
         w_act = (actual / full) * (track_r - track_l)
         x_tgt = track_l + (target / full) * (track_r - track_l)
-        ok = actual >= target
         color = PRIMARY if ok else RISK
 
         out.append(f'    <text x="80" y="{cy}" font-size="22" font-weight="600" '
                    f'fill="{INK}">{esc(it["name"])}</text>')
+        tgt_label = f'目标 {esc(fmt(target))}{esc(it.get("unit",""))}'
+        if lower_better:
+            tgt_label += '（越低越好）'
         out.append(f'    <text x="80" y="{cy + 28}" font-size="16" '
-                   f'fill="{INK_2}">目标 {esc(fmt(target))}{esc(it.get("unit",""))}</text>')
+                   f'fill="{INK_2}">{tgt_label}</text>')
         out.append(f'    <rect x="{track_l}" y="{cy - 20}" width="{track_r-track_l}" '
                    f'height="30" rx="4" fill="{PANEL}"/>')
         out.append(f'    <rect x="{track_l}" y="{cy - 20}" width="{w_act:.1f}" '
@@ -313,6 +350,7 @@ def render_bullet(spec: dict) -> str:
         out.append(f'    <text x="{track_r + 26}" y="{cy}" font-size="20" '
                    f'font-weight="700" fill="{INK}">{esc(fmt(actual))}'
                    f'{esc(it.get("unit",""))}</text>')
+        # 达成率语义统一：>100% 恒为超额、<100% 恒为未达标（逆向指标已在上方换算）
         out.append(f'    <text x="{track_r + 26}" y="{cy + 26}" font-size="18" '
                    f'font-weight="700" fill="{color}">{pct:.0f}%</text>')
 
@@ -498,9 +536,154 @@ def render_area(spec: dict) -> str:
     return "\n".join(out) + "\n"
 
 
+# ---------------------------------------------------------------------------
+# 7) waterfall —— 桥式加减分解（起值 → 逐项增减 → 终值）
+#    依据 charts_index: Pick for stepwise additive/subtractive breakdown
+#    bridging a starting value to an ending value. Skip if no running total.
+# ---------------------------------------------------------------------------
+
+def render_waterfall(spec: dict) -> str:
+    items = spec["items"]        # [{label, delta}]，首末为起止值（is_total=True）
+    unit = spec.get("unit", "")
+    c_up = spec.get("up_color", PRIMARY)
+    c_dn = spec.get("down_color", RISK)
+    c_tot = INK
+
+    # 逐项累计出 running total，再求全局 y 范围
+    run, totals = 0.0, []
+    for it in items:
+        if it.get("is_total"):
+            run = it["delta"]
+            totals.append((0.0, run))
+        else:
+            start = run
+            run += it["delta"]
+            totals.append((start, run))
+    lo = min(min(a, b) for a, b in totals)
+    hi = max(max(a, b) for a, b in totals)
+    top = nice_max(hi)
+    span = max(top - min(lo, 0), 1e-6)
+
+    n = len(items)
+    slot = (PLOT_R - PLOT_L) / n
+    bar_w = min(96.0, slot * 0.6)
+
+    def py(v): return PLOT_B - (v - min(lo, 0)) / span * (PLOT_B - PLOT_T)
+
+    out = page_open(spec["title"], spec.get("subtitle", ""))
+    # 左边界须容纳最宽的 Y 轴刻度标签（5 位数如 25,000 → 左伸约 48px）
+    out.append('  <g id="chart-plot" data-pptx-bounds="56 150 1164 460">')
+    out += gridlines(min(lo, 0), top)
+
+    for i, (it, (a, b)) in enumerate(zip(items, totals)):
+        cx = PLOT_L + slot * (i + 0.5)
+        # 注意：py() 把"值大"映射为"y 小"（屏幕坐标向下增大）。
+        # 故柱体上边 = py(较大值)、下边 = py(较小值)；
+        # 若误写成 y1-y0（先 min 后 max）会得到负高度，柱子塌成一条线（T-E2E5 / C-020）。
+        top_y = py(max(a, b))
+        bot_y = py(min(a, b))
+        h = max(bot_y - top_y, 3.0)
+        if it.get("is_total"):
+            color, label = c_tot, f"{b:,.0f}"
+        else:
+            color = c_up if it["delta"] >= 0 else c_dn
+            label = f"{'+' if it['delta'] >= 0 else '−'}{abs(it['delta']):,.0f}"
+        out.append(f'    <rect x="{cx - bar_w/2:.1f}" y="{top_y:.1f}" width="{bar_w:.1f}" '
+                   f'height="{h:.1f}" rx="3" fill="{color}"/>')
+        # 数值标签：增长/起止值画在柱顶上方，下降值画在柱底下方（避免压住柱体）
+        lab_y = (top_y - 12) if (it["delta"] >= 0 or it.get("is_total")) else (bot_y + 26)
+        out.append(f'    <text x="{cx:.1f}" y="{lab_y:.1f}" font-size="18" '
+                   f'font-weight="700" fill="{INK}" text-anchor="middle">{esc(label)}</text>')
+        # 类目名（可能含空格 → 单行，超长截断）
+        name = it["label"] if len(it["label"]) <= 8 else it["label"][:7] + "…"
+        out.append(f'    <text x="{cx:.1f}" y="{CAT_Y}" font-size="18" '
+                   f'font-weight="600" fill="{INK}" text-anchor="middle">{esc(name)}</text>')
+
+    out += axis_lines()
+    out.append('  </g>')
+    if unit:
+        out += note_line(spec.get("note", "") or f"单位：{unit}")
+    else:
+        out += note_line(spec.get("note", ""))
+    out += page_close()
+    return "\n".join(out) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# 8) funnel —— 漏斗（3-5 段单调递减的转化序列）
+#    依据 charts_index: Pick for 3-5 sequential conversion stages whose values
+#    drive a monotonic drop-off.
+# ---------------------------------------------------------------------------
+
+def render_funnel(spec: dict) -> str:
+    stages = spec["stages"]      # [{name, value, note?}]
+    n = len(stages)
+    top_y, bot_y = 200.0, 590.0
+    max_w = 760.0
+    row_h = (bot_y - top_y) / n
+    gap = 8.0
+    cx = 520.0
+    vmax = max(s["value"] for s in stages) or 1.0
+
+    out = page_open(spec["title"], spec.get("subtitle", ""))
+    # 窄段数值标签会移到漏斗左侧外部，故左边界须留出空间
+    out.append('  <g id="chart-plot" data-pptx-bounds="40 150 1180 470">')
+
+    for i, st in enumerate(stages):
+        y = top_y + i * row_h
+        h = row_h - gap
+        w = max_w * (st["value"] / vmax)
+        # 逐段收窄：本段底宽 = 下段顶宽，形成连续漏斗
+        w_next = max_w * (stages[i + 1]["value"] / vmax) if i + 1 < n else w * 0.92
+        x0t, x1t = cx - w / 2, cx + w / 2
+        x0b, x1b = cx - w_next / 2, cx + w_next / 2
+        color = PRIMARY if i == 0 else PRIMARY_2
+        out.append(f'    <polygon points="{x0t:.1f},{y:.1f} {x1t:.1f},{y:.1f} '
+                   f'{x1b:.1f},{y + h:.1f} {x0b:.1f},{y + h:.1f}" '
+                   f'fill="{color}" fill-opacity="{0.9 - i * 0.13:.2f}"/>')
+
+        # 数值标签：段越窄越放不下。若"值文本宽度"超过该段的可容纳宽度，
+        # 就移到漏斗**左侧外部**，避免压住斜边（T-E2E5 / C-021）。
+        val_txt = fmt(st["value"])
+        val_w = vw_of(val_txt) * 22
+        mid_y = y + h / 2 + 8
+        if val_w + 16 <= w_next:            # 段底宽仍容得下 → 白字居中
+            out.append(f'    <text x="{cx:.1f}" y="{mid_y:.1f}" font-size="22" '
+                       f'font-weight="700" fill="#FFFFFF" text-anchor="middle">'
+                       f'{esc(val_txt)}</text>')
+        else:                               # 否则放到左侧外部（左对齐到轴区左缘）
+            out.append(f'    <text x="{PLOT_L - 24}" y="{mid_y:.1f}" font-size="22" '
+                       f'font-weight="700" fill="{color}" text-anchor="end">'
+                       f'{esc(val_txt)}</text>')
+        # 右侧名称 + 转化率
+        out.append(f'    <text x="1000" y="{y + h/2 + 2:.1f}" font-size="20" '
+                   f'font-weight="600" fill="{INK}" text-anchor="start">'
+                   f'{esc(st["name"])}</text>')
+        if i > 0 and stages[i - 1]["value"]:
+            rate = st["value"] / stages[i - 1]["value"] * 100
+            out.append(f'    <text x="1000" y="{y + h/2 + 26:.1f}" font-size="16" '
+                       f'fill="{INK_2}" text-anchor="start">'
+                       f'转化 {rate:.0f}%</text>')
+
+    out.append('  </g>')
+    out += note_line(spec.get("note", ""))
+    out += page_close()
+    return "\n".join(out) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# 9) grouped_bar —— 多序列并排（C-017：与 column 拆分，对齐 base 语义）
+#    依据 charts_index: Pick for 2-4 series side-by-side across the same categories
+# ---------------------------------------------------------------------------
+
+def render_grouped_bar(spec: dict) -> str:
+    return render_column(spec)
+
+
 RENDERERS = {"column": render_column, "line": render_line, "bullet": render_bullet,
              "dual_axis": render_dual_axis, "progress": render_progress,
-             "area": render_area}
+             "area": render_area, "waterfall": render_waterfall,
+             "funnel": render_funnel, "grouped_bar": render_grouped_bar}
 
 
 # ---------------------------------------------------------------------------
