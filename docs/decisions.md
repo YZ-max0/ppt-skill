@@ -475,3 +475,27 @@ T-03 出现 6 项误报（噪声率 11% > 阈值 3）→ **观察状态结束，
 ### T-E2E3 发布
 
 `tasks/T-E2E3.md`：T-02 年终述职（② 标准档）+ base 图表接入（3 模板试验 → ≥2 页实战）+ 图表使用说明与场景分工。
+
+## 2026-09-14 · T-E2E3 复核裁决 + T-FIX4/T-E2E4 发布
+
+### 复核结论
+
+- 验收全过：14 页、3 页 base 图表（line/bullet/column）、checker 14/14、D-2 全 0、乱码 0、占位符 0 ✅
+- **chart-fill 三步接入法**（校验契约→读数据模型→重算几何）质量极高；选型严格按 `charts_index.json` 规则，
+  **正确否决指挥官卡内建议**（waterfall 无 running total / grouped_bar 维度不符）→ 采纳执行者修正
+- 场景分工口诀入库（"能填槽位用 v2 / 要算坐标用 base / 要能改数用 base 原生"）
+- **C-011 内容泄漏（靠看图抓到，checker 与 D-2 均测不出）**：骨架无标记示例内容会随机械填充泄漏 →
+  升级为 **T-FIX4 全库卫生专项**（扫描 24 骨架 + 修复 + 自动化阻断 + 写进 USAGE）
+- 环境事实（执行者自纠）：D 盘 WSL 侧只读是 mount namespace 的 ro 标志（非沙箱）；
+  可行链路 = WSL 读写文本 + Windows 进程跑 Python/git + `\\wsl.localhost\` 互通 —— 记入长期环境事实
+
+### git 远端状态澄清（指挥官核实）
+
+- 本地 24 commits 与 `origin/main` **完全同步**（无未推送）；decisions 早前"20 commits"为旧快照
+- Remote：`https://github.com/YZ-max0/ppt-skill`；**可见性待用户查证**
+  （GitHub → 仓库 Settings → General 看 Visibility；若为 Public 亦已按公开标准清理过）
+
+### 发布
+
+- `tasks/T-FIX4.md`：骨架卫生全线复查（P0，先行）
+- `tasks/T-E2E4.md`：T-04 技术分享 + 演讲者逐字稿（图表演兵 + D-4 逐字稿轨道首落地）
