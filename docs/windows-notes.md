@@ -123,7 +123,7 @@ PowerPoint 内显示正常，但**下游若做纯文本解析/比对需自行按
 
 `powershell -Command "cd '<dir>'; python project_manager.py init foo"` 这种写法下，
 `cd` 与 python 子进程的工作目录传递**不可靠**——项目可能落在**默认 projects 根**
-（本机实测为 `C:\Users\EDY\AppData\Local\Temp\opencode\projects\`），而非 `<dir>`。
+（本机实测为 `C:\Users\<you>\AppData\Local\Temp\opencode\projects\`），而非 `<dir>`。
 
 现象：命令输出 "Project created: ..." 看起来成功，但 `find <dir>` 找不到项目。
 
@@ -132,7 +132,7 @@ PowerPoint 内显示正常，但**下游若做纯文本解析/比对需自行按
 ```powershell
 # 方案 A（推荐）：用 init 的 --dir 直接指定基目录 —— 不依赖 CWD，最可靠
 python 'D:\...\vendor-ppt-master\scripts\project_manager.py' init foo `
-    --dir 'C:\Users\EDY\AppData\Local\Temp\opencode\mywork' `
+    --dir 'C:\Users\<you>\AppData\Local\Temp\opencode\mywork' `
     --format ppt169 --quick-generate
 
 # 方案 B：Set-Location 后再 init（-LiteralPath 应对含空格/中文路径）
@@ -171,15 +171,15 @@ T-M1A / T-E2E2 两次实测该断言均有效（21 页产物 `【` 计数 = 0）
 
 ## W-8 · 新写入的文件会被端点加密软件加密（T-M2A 实测发现）
 
-本机安全软件（TSD，与 vendor 内 17 个加密资产同一机制）会对**新写入的文件做透明加密**。
+本机安全软件（端点透明加密软件，与 vendor 内 17 个加密资产同一机制）会对**新写入的文件做透明加密**。
 典型受害者是**渲染/导出的图片**：
 
 | 读取方 | 看到的内容 |
 |---|---|
 | Windows 进程（Python / PowerShell） | 正常 PNG（首字节 `89 50 4E 47`） |
-| **WSL 进程**（含 harness 的图片查看能力） | `%TSD-Header-###%` 加密头 |
+| **WSL 进程**（含 harness 的图片查看能力） | `%TSD-Header-###%`（加密文件头标记字面量） 加密头 |
 
-实测：COM 渲染出的 `slide-02.png`，WSL `head -c 16` 得到 `%TSD-Header-###%`；
+实测：COM 渲染出的 `slide-02.png`，WSL `head -c 16` 得到 `%TSD-Header-###%`（加密文件头标记字面量）；
 Windows `[IO.File]::ReadAllBytes` 得到标准 PNG 魔数。
 
 **影响**：WSL 侧的任何图像处理、预览、比对**全部失效**。
@@ -193,7 +193,7 @@ python -c "from PIL import Image; im=Image.open(r'C:\...\slide-01.png'); print(i
 
 ```text
 # 错误：在 WSL 侧读取渲染产物
-head -c 16 /mnt/c/.../slide-01.png   →  %TSD-Header-###%   (读不到 PNG 内容)
+head -c 16 /mnt/c/.../slide-01.png   →  `%TSD-Header-###%`（加密文件头标记字面量）   (读不到 PNG 内容)
 ```
 
 `deltas/render-preview/render_png.py` 即按此原则实现：contact sheet 生成、像素统计、

@@ -32,7 +32,7 @@
 
 ## 2. 渲染结果（3 deck）
 
-全部产物位于 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\`。
+全部产物位于 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\`。
 
 | deck | 源文件 | 页数 | 渲染页数 | contact sheet 尺寸 | 耗时 |
 |---|---|---|---|---|---|
@@ -76,11 +76,11 @@ ppt-render/
 ## 3. ⚠️ 关键环境发现：渲染产物被端点加密软件加密
 
 **现象**：COM 写出的 PNG 在 **Windows 进程**中读取正常（首字节 `89 50 4E 47` = PNG 魔数），
-但从 **WSL 进程**读取会看到 `%TSD-Header-###%` 头 —— 即被安全软件透明加密。
+但从 **WSL 进程**读取会看到 `%TSD-Header-###%`（加密文件头标记字面量） 头 —— 即被安全软件透明加密。
 
 **证据**：
 ```text
-WSL 侧:        head -c 16 slide-02.png  →  %TSD-Header-###%
+WSL 侧:        head -c 16 slide-02.png  →  `%TSD-Header-###%`（加密文件头标记字面量）
 Windows 侧:    [IO.File]::ReadAllBytes →  89 50 4E 47 0D 0A 1A 0A   (PNG 正常)
 ```
 
@@ -92,7 +92,7 @@ Windows 侧:    [IO.File]::ReadAllBytes →  89 50 4E 47 0D 0A 1A 0A   (PNG 正�
 `render_png.py` 的 contact sheet 生成、像素分析、ASCII 预览都走 Pillow（Windows 侧），
 不经过 WSL 文件读取。
 
-> **这与 TSD 对 vendor 文件的加密是同一机制**（同一安全软件），
+> **这与 该加密软件对 vendor 文件的加密是同一机制**（同一安全软件），
 > 但方向相反：vendor 是"Windows 能读、WSL 读密文"；本轮渲染产物也是同一现象。
 > 已作为 **W-8** 记录进 `docs/windows-notes.md`（见建议 1）。
 
@@ -123,7 +123,7 @@ Windows 侧:    [IO.File]::ReadAllBytes →  89 50 4E 47 0D 0A 1A 0A   (PNG 正�
 
 | 项 | 原因 |
 |---|---|
-| **人工目视确认视觉质量** | TSD 加密阻止 WSL 侧读取 PNG；本轮仅做程序化验证（色数 + ASCII 结构）。**需要人类在 Windows 上打开 contact sheet 目视** |
+| **人工目视确认视觉质量** | 端点透明加密阻止 WSL 侧读取 PNG；本轮仅做程序化验证（色数 + ASCII 结构）。**需要人类在 Windows 上打开 contact sheet 目视** |
 | 排版美观度/层级/密度评审 | 属 L3 人工抽检范围，且需目视，本轮未做 |
 | LibreOffice 路径 | 本机未安装，未实现该分支（脚本未含 soffice 代码路径） |
 | 高 DPI 渲染（1920×1080 等） | 脚本支持 `--width/--height`，但未实测其他尺寸 |
@@ -145,9 +145,9 @@ Windows 侧:    [IO.File]::ReadAllBytes →  89 50 4E 47 0D 0A 1A 0A   (PNG 正�
 **不能证明视觉效果良好**。建议由人类在 Windows 上打开 3 张 contact sheet 快速过目：
 
 ```text
-C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\t01\contact-sheet.png    (6 页)
-C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\t01b\contact-sheet.png   (6 页)
-C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\t03\contact-sheet.png    (21 页)
+C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\t01\contact-sheet.png    (6 页)
+C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\t01b\contact-sheet.png   (6 页)
+C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\t03\contact-sheet.png    (21 页)
 ```
 
 这是 M2 视觉闭环的**最后一个缺失环节**。
@@ -182,7 +182,7 @@ C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\t03\contact-sheet.png    (21
 | 红线 | 结果 |
 |---|---|
 | vendor 零修改 | ✅ `git diff --stat HEAD -- vendor-ppt-master/` 为空 |
-| PNG 产物在临时目录 | ✅ 全在 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\`；repo 无图片新增 |
+| PNG 产物在临时目录 | ✅ 全在 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\`；repo 无图片新增 |
 | 不擅自安装软件 | ✅ 未安装任何软件；LibreOffice 仅评估可行性 |
-| 渲染失败如实报告 | ✅ 3 处实现缺陷与 TSD 加密限制均如实记录，未伪造截图 |
+| 渲染失败如实报告 | ✅ 3 处实现缺陷与 端点透明加密限制均如实记录，未伪造截图 |
 | 脚本入库 | ✅ `deltas/render-preview/render_png.py` + `README.md` |

@@ -20,7 +20,7 @@ Design notes
 * **Encryption caveat**: on this machine the endpoint security product
   transparently encrypts newly written files. A PNG produced by the Windows
   COM process reads back as plain PNG for Windows processes, but shows a
-  ``%TSD-Header%`` marker when read from WSL. All image work therefore happens
+  ```%TSD-Header%`（加密文件头标记字面量）`` marker when read from WSL. All image work therefore happens
   in the Windows Python process (Pillow), never in WSL.
 * Contact sheets are built with Pillow (already a python-pptx dependency).
 

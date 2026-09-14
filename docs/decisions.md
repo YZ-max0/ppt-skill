@@ -28,7 +28,7 @@
 
 ### 环境约束（长期生效）
 
-1. **TSD 透明加密**：vendor 内 17 个 JSON/XML 带 `%TSD-Header-###%`；WSL 读密文，Windows 侧（PowerShell/git/python）透明解密。**vendor 全链路必须在 Windows 侧执行**；跨侧比对用明文 SHA256，禁用 WSL `cmp`
+1. **端点透明加密软件对文件做透明加密**：vendor 内 17 个 JSON/XML 带 `%TSD-Header-###%`（加密文件头标记字面量）；WSL 读密文，Windows 侧（PowerShell/git/python）透明解密。**vendor 全链路必须在 Windows 侧执行**；跨侧比对用明文 SHA256，禁用 WSL `cmp`
 2. **git 验收法失效**：repo 无任何 commit，全文件 untracked。后续增量验收暂时依赖"官方基线逐字节比对"。**建议尽快做基线 commit（待用户授权，指挥官不自行操作）**
 3. `tasks/EXECUTION-PACK.md` 于执行期从磁盘消失（非本指挥官创建/未参与），已向用户报告非本项目产物，待用户侧排查
 
@@ -68,8 +68,8 @@ D-2 质检链路：定义（T-D2 卡）→ 实现 → 修订（T-REV1）→ 验�
 ### 1. 基线 commit —— 有条件授权
 
 验证链（缺一不可）：
-a) 信任链：Windows git `git hash-object <raw>` 对比 PowerShell 读明文后手算的 blob SHA1；一致 = git.exe 被 TSD 信任
-b) **提交后复查**：`git status` 必须干净。防"假 dirty"（TSD 可能对 checkout 回工作区的文件重新加密，导致 index/工作区哈希不符）——此步为指挥官补充，执行者的方案未覆盖
+a) 信任链：Windows git `git hash-object <raw>` 对比 PowerShell 读明文后手算的 blob SHA1；一致 = git.exe 被 端点透明加密软件 信任
+b) **提交后复查**：`git status` 必须干净。防"假 dirty"（端点透明加密软件 可能对 checkout 回工作区的文件重新加密，导致 index/工作区哈希不符）——此步为指挥官补充，执行者的方案未覆盖
 c) 只在验证 a+b 通过后用 **Windows git** 提交；任一失败立即停手报告，禁止 WSL git 提交
 d) commit message：`chore: baseline M0 — CONTRACT/ledger/DELTAS + vendor ppt-master 5.0.0 + deltas D-1/D-2/D-6 + test set v1`
 e) 若出现假 dirty：停止后续动作，把 `git status` 明细带回指挥官决策（预案：.gitattributes 标记 or 接受 dirty 记录成因）
@@ -81,12 +81,12 @@ e) 若出现假 dirty：停止后续动作，把 `git status` 明细带回指挥
 ### 3. 探针 —— 批准执行，但设计修正
 
 执行者原探针 `import pptx_animations` **不采用**：该模块存在性未证实，且探针目标错位。
-核心未知是 **"TSD 透明解密对 python 进程是否生效"**，探针必须打在**加密资产本身**上：
+核心未知是 **"端点透明加密软件 透明解密对 python 进程是否生效"**，探针必须打在**加密资产本身**上：
 
 ```
 python -c "import json; raw=open(r'D:\OpenCode_Spaces\PPT skill制作\vendor-ppt-master\scripts\prompt_audit_manifest.json','rb').read(); print(raw[:12]); json.loads(raw); print('DECRYPT-OK')"
 ```
-- 通过标准：头字节非 `%TSD-Header%` 且 `json.loads` 成功 → TSD 对 python 解密生效
+- 通过标准：头字节非 `%TSD-Header%`（加密文件头标记字面量） 且 `json.loads` 成功 → 该加密软件对 python 解密生效
 - 补一条：在 Windows python 下跑任一 vendor 脚本 `--help`（如 `batch_validate.py --help`）验证可执行性
 - 失败处理：带回原始错误，指挥官决定是否升级为冒烟卡前置任务
 
@@ -98,14 +98,14 @@ D-3（style-lock）/ D-4（presenter-mode）任务卡已发布（`tasks/T-D3D4.m
 
 ### 复核结论
 
-- 探针（修正版设计）：TSD 对 Windows python 透明解密生效（json.loads OK）；`batch_validate --help` 可执行；pptx_animations 203 预设加载成功 ✅
+- 探针（修正版设计）：该加密软件对 Windows python 透明解密生效（json.loads OK）；`batch_validate --help` 可执行；pptx_animations 203 预设加载成功 ✅
 - 基线 commit `f4b765b` 存在；Windows git 下 0 假 dirty；vendor 零 diff；探针证明冒烟最大风险解除 ✅
 - T-D3D4：`deltas/style-lock.md`（108 行）+ `deltas/presenter-mode.md`（145 行），锚点准确、吸收对照与合规声明齐备，指挥官逐行复核通过 ✅
 
 ### 环境约束（追加，长期生效）
 
-1. **git 操作仅限 Windows git**：WSL git 读到 TSD 密文会产生 17 条永久假 dirty（密文重加密导致字节不同）。Windows git hash-object 与明文 4/4 一致，为权威工具
-2. TSD 对 Windows 侧 git.exe/python 均为信任进程（已实测）；WSL 侧不可用
+1. **git 操作仅限 Windows git**：WSL git 读到 端点透明加密软件 密文会产生 17 条永久假 dirty（密文重加密导致字节不同）。Windows git hash-object 与明文 4/4 一致，为权威工具
+2. 该加密软件对 Windows 侧 git.exe/python 均为信任进程（已实测）；WSL 侧不可用
 
 ### EXECUTION-PACK 排查结论（结案待用户确认）
 
@@ -341,7 +341,7 @@ T-03 出现 6 项误报（噪声率 11% > 阈值 3）→ **观察状态结束，
 - 渲染器：**WPS Office COM**（注册 `PowerPoint.Application` ProgID）可用，1280×720 精确渲染 ✅
 - 3 deck 全部渲染（t01 6p / t01b 6p / t03 21p）+ contact sheet；程序化空白/深色页验证通过 ✅
 - 脚本入库（render_png.py 221 行 + README，3 个实现缺陷已修复）✅；commit 链干净 ✅
-- **W-8 修正（指挥官实测）**：渲染产物的 TSD 加密仅限制 **WSL 进程**；**Windows 进程（含 opencode read 工具）可读明文**——
+- **W-8 修正（指挥官实测）**：渲染产物的 端点透明加密仅限制 **WSL 进程**；**Windows 进程（含 opencode read 工具）可读明文**——
   指挥官已直接读取两张 contact sheet 完成视觉评估。**W-8 表述应从"agent 无法读取"修正为"WSL 进程不可读；Windows 侧全链路可读"**
 
 ### 视觉评估结论（首份，详见 `docs/visual-review-01.md`）
@@ -421,3 +421,38 @@ T-03 出现 6 项误报（噪声率 11% > 阈值 3）→ **观察状态结束，
 
 实测时可用 USAGE 的"请求模板"六输入项（主题/受众/页数/时长/素材/风格偏好）发起；
 预期交付物 = .pptx + contact sheet 图。首次实测建议从"快速通道 6-8 页"起步（路径最短），再试"导演式"。
+
+## 2026-09-11 · T-M2C 复核关闭与项目实测阶段
+
+### 复核结论
+
+- README（55 行）+ USAGE（265 行）结构与限额达标；24 骨架索引与实物逐一核对 ✅
+- doc-test：按手册复跑 T-01b 六步全过（含 checker/导出/D-2/渲染）✅
+- 3 处偏差均反向验证了手册提醒的准确性（`--dir`/整段替换/版本归属）✅
+- 指挥官修正 1 处笔误（`PowerPoit` → `PowerPoint`，字符级）；`projects/` 残留已由执行者清理
+- 建议 4（Skill 形态入口暂不改造）→ **同意**（等真实使用反馈后再议）
+
+### 项目状态：进入用户实测阶段
+
+- 全交付关闭：M0 / M1 / M2（渲染管线 + 视觉闭环 + v2 增强 + 手册）
+- 资产库 24 骨架 ｜ 质检器 6 缺陷全修 ｜ 视觉评分 2.5→4/6 ｜ vendor 改动仅 3 处登记
+- **下一步 = 用户亲自实测**（快速通道起步 → 导演式 → 反馈收集）
+
+## 2026-09-11 · GitHub 发布决策与 T-PUB1 发布
+
+### 用户询问与指挥官结论
+
+用户问"是否可以发到 GitHub" → **可以**。三层许可审计：基座 MIT（可发布，须保留声明）/ 增量原创 / 吸收源全部原理重写（无代码资产混入，无 AGPL 传染）。
+
+### 发布前五项必做（已入 T-PUB1 卡）
+
+1. **加密资产文件验证**（core）：17 个加密文件的 git 对象须为明文，否则 GitHub 上文件不可用；push 后网页抽查
+2. 隐私脱敏：`C:\Users\<you>` 全库替换占位符；"加密软件名"措辞泛化
+3. 顶层 LICENSE（默认 MIT，用户可改）+ THIRD-PARTY-NOTICES（ppt-master 归属 + 8 源致谢表）
+4. git 历史排查（.env 等敏感文件从未入库）
+5. 发布版 README 精修（公众向简介 3-5 行）
+
+### 决策
+
+- 默认：**MIT 许可 + 公开仓库标准**（用户若想改，告知执行者）
+- **push 与建库由用户执行**；卡提供 push 后验证清单

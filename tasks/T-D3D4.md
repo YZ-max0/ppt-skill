@@ -11,7 +11,7 @@ M0 最后两块文档增量。契约场景 = 重要汇报/演讲（原生 PPTX �
 
 | 材料 | 路径 | 用途 |
 |---|---|---|
-| guizang checklist | `C:\Users\EDY\.workbuddy\skills\guizang-ppt-skill\references\checklist.md` | P0-P3 分级结构原理 |
+| guizang checklist | `C:\Users\<you>\.workbuddy\skills\guizang-ppt-skill\references\checklist.md` | P0-P3 分级结构原理 |
 | guizang 版式锁 | ...`\references\swiss-layout-lock.md` | "登记即锁"机制原理 |
 | guizang 主题色 | ...`\references\themes-swiss.md` | 色板纪律原理（禁自定义/禁混搭） |
 | guizang 演讲者 | ...`\references\presenter-mode.md` | 数据契约/稳定 ID/排练原理 |

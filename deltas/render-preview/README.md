@@ -71,7 +71,7 @@ python deltas\render-preview\render_png.py deck.pptx --no-contact
 - **W-6（工作目录陷阱）**：脚本不依赖 CWD，输入输出全部走显式绝对/相对参数。
 - **W-8（新增，实测发现）· 渲染产物会被端点加密软件加密**
   本机安全软件对**新写入文件做透明加密**：COM 写出的 PNG 在 Windows 进程中读是正常 PNG
-  （`89 50 4E 47`），但从 WSL 读会看到 `%TSD-Header-###%` 头。
+  （`89 50 4E 47`），但从 WSL 读会看到 `%TSD-Header-###%`（加密文件头标记字面量） 头。
   **影响**：WSL 侧工具（含 harness 的图片查看器）**无法直接读取渲染结果**。
   **绕行**：所有图片处理（缩略图、contact sheet、像素分析、ASCII 预览）一律在
   **Windows Python 进程内**完成（Pillow）。本脚本即按此实现。

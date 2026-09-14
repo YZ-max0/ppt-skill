@@ -14,12 +14,12 @@
 
 | 参考 | 路径 | 用途 |
 |---|---|---|
-| Gorden 容量计算 | `C:\Users\EDY\.workbuddy\skills\GordenPPTSkill\scripts\compute_capacity.py` | vw 视觉宽度单位（CJK=1.0/拉丁=0.5/空格=0.35）、字号继承解析（`_master_txstyle_sz`/`_defRPr_sz_from_lststyle`）、`capacity_for()` |
+| Gorden 容量计算 | `C:\Users\<you>\.workbuddy\skills\GordenPPTSkill\scripts\compute_capacity.py` | vw 视觉宽度单位（CJK=1.0/拉丁=0.5/空格=0.35）、字号继承解析（`_master_txstyle_sz`/`_defRPr_sz_from_lststyle`）、`capacity_for()` |
 | Gorden 溢出检查 | ...`scripts\build_pptx.py`（`check_overflow`/`_visual_width`） | 溢出判据：**优先 vw 总宽 vs 行宽预算；再按行数预算**；容忍度与"1.2x+ 真实溢出"的档位 |
 | Gorden 渲染审查 | ...`scripts\render_slides.py` | 渲染 PNG 的辅助思路（本任务不要求，M2 才做） |
 | 基座质量门 | `D:\OpenCode_Spaces\PPT skill制作\vendor-ppt-master\workflows\template-fill-pptx.md` | 找它现有校验步骤，确定挂载点（执行者找到后在 README 写明"应于哪一步后运行"） |
 | 基座输出风格 | `vendor-ppt-master\scripts\batch_validate.py` | 输出风格对齐：status/errors/warnings 的分级与摘要 |
-| 同级标题规则 | `C:\Users\EDY\.workbuddy\skills\GordenPPTSkill\references\workflow.md` | 用 grep 找"标题字号"/"一致性"规则原文，抄原理不抄文 |
+| 同级标题规则 | `C:\Users\<you>\.workbuddy\skills\GordenPPTSkill\references\workflow.md` | 用 grep 找"标题字号"/"一致性"规则原文，抄原理不抄文 |
 
 ## 交付物（全部新建在 `deltas/pptx-fill-check/`）
 
@@ -37,7 +37,7 @@
 2. 许可：Gorden 源码 MIT（LICENSE 明确 script 层 MIT；templates 非商用已确认）。实现从源码理解后**自写**；不得把 Gorden 的 docstring/注释整段粘贴；不得引入 Gorden `templates/` 或任何 .pptx 资产进 repo（验收样例在 repo 外）
 3. 平台：Windows PowerShell；命令行用 `python` 而非 `python3`
 4. 语言：README 中文；代码注释中文或英文均可（保持单一语言）
-5. 验收用例：你自己用 python-pptx 在 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-fill-check\` 构造 3 个样张（不溢出/溢出 P1/溢出 P0+标题不一致），跑通三个脚本并截取输出存到临时目录；**验收产物不得进 repo**
+5. 验收用例：你自己用 python-pptx 在 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-fill-check\` 构造 3 个样张（不溢出/溢出 P1/溢出 P0+标题不一致），跑通三个脚本并截取输出存到临时目录；**验收产物不得进 repo**
 6. 代码风格：函数+docstring+可复用的新函数；CLI 走 argparse；退出码：0=无 P0，2=P0
 
 ## 验收标准（自检全 Yes 才交付）

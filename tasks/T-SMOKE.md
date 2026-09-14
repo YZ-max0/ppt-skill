@@ -30,7 +30,7 @@
 ## 硬约束
 
 1. **vendor 零修改**：一切问题只记录、不修复（修复走后续卡）
-2. 临时产物全部放 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-smoke\`；repo 内不新增 .pptx/SVG 产物
+2. 临时产物全部放 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-smoke\`；repo 内不新增 .pptx/SVG 产物
 3. 除交付报告外不改 repo 任何文件（报告写成 `docs/smoke-report.md`，唯一 repo 内新增）
 4. Windows 侧 python（`python`），git 只用 Windows git
 

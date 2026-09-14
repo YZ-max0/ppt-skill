@@ -53,7 +53,7 @@
 
 ## 3. 产物清单
 
-全部位于 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-e2e\`（repo 零产物）：
+全部位于 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-e2e\`（repo 零产物）：
 
 | 产物 | 路径 | 规格 |
 |---|---|---|
@@ -191,7 +191,7 @@
 | 红线 | 结果 |
 |---|---|
 | vendor 零修改 | ✅ `git diff --stat HEAD -- vendor-ppt-master/` 为空 |
-| 产物全部进临时目录 | ✅ 全在 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-e2e\`；repo `*.pptx`=0 |
+| 产物全部进临时目录 | ✅ 全在 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-e2e\`；repo `*.pptx`=0 |
 | 报告为 repo 唯一新增 | ✅ `git status` 仅 `?? docs/e2e-01-report.md` |
 | T-01 原文未改编 | ✅ 4 事项 / 2 风险 / 6-8 页 / 观众与时长均按原文落实 |
 | 只记录不修复 | ✅ C-002 仅记录，未改 D-2 代码或 vendor |

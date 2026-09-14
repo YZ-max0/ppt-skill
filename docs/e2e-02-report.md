@@ -36,7 +36,7 @@
 
 ## 2. 产物清单
 
-全部位于 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-e2e2\`（repo 零产物）：
+全部位于 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-e2e2\`（repo 零产物）：
 
 | 产物 | 路径 | 规格 |
 |---|---|---|
@@ -313,7 +313,7 @@ C-009 暴露：骨架文案变更会导致填充静默失配（若无断言）�
 | 红线 | 结果 |
 |---|---|
 | vendor 零修改 | ✅ `git diff --stat HEAD -- vendor-ppt-master/` 为空 |
-| 产物全在临时目录 | ✅ `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-e2e2\`；repo `*.pptx`=0 |
+| 产物全在临时目录 | ✅ `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-e2e2\`；repo `*.pptx`=0 |
 | repo 新增仅授权文件 | ✅ `deltas/layout-assets/v1/`（10 骨架）+ 本报告 + `docs/windows-notes.md` 增量 |
 | 占位符零残留 | ✅ 读回 `【` 计数 = **0** |
 | 21 页未缩水 | ✅ postflight `slides=21`（T-03 要求 18-22） |

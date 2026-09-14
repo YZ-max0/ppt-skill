@@ -2,7 +2,7 @@
 
 > 位置：repo 定制层 `deltas/pptx-fill-check/`（与 `vendor-ppt-master/` 平级，**不进入 vendor**）。
 > 用途：`template-fill-pptx` 路由 **apply 之后 / 交付之前** 的后置物理质检，与 base 的 `check-plan`（填充前预算）互补。
-> 平台：Windows + `python`（本机为 `C:\Users\EDY\AppData\Local\Programs\Python\Python312\python.exe`）。
+> 平台：Windows + `python`（本机为 `C:\Users\<you>\AppData\Local\Programs\Python\Python312\python.exe`）。
 
 ## 为什么需要它
 

@@ -28,7 +28,7 @@
 - `ppt-e2e2\...\t03-proposal_20260911_153940.pptx`（导演式 21 页）
 
 每 deck：全页 PNG（150 DPI 左右）→ **contact sheet 网格图**（每 deck 一张，含页码编号）。
-全部存 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\`，给出文件清单（路径 + 尺寸）。
+全部存 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\`，给出文件清单（路径 + 尺寸）。
 
 ### 3 · 脚本化（进 repo）
 

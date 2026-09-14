@@ -1,7 +1,14 @@
 # PPT Skill 工作区
 
-基于 [ppt-master 5.0.0](vendor-ppt-master/)（MIT）基座，叠加**导演式工作流**、**版式骨架资产库**、
-**质检工具链**与**视觉渲染管线**的 PPT 制作系统。目标：从"我有一个主题"到"一份可交付的 .pptx"。
+**这是什么**：一套用 AI 把"一个主题"变成"一份可交付 PPT"的工作区。
+它不生成花哨的模板，而是帮你把内容先想清楚（谁听、讲什么、每页要证明什么），再落到 24 个
+已验证合规的版式骨架上，最后通过质量门与视觉自检交付原生 `.pptx`。
+
+**解决什么问题**：汇报 PPT 的两个老问题——"内容没想清楚就排版"和"排完了没人验证效果"。
+本工作区把前者固化为可执行的导演流程，把后者固化为可脚本化的质检与渲染管线。
+
+基于 [ppt-master 5.0.0](vendor-ppt-master/)（MIT）基座，叠加导演工作流、版式骨架资产库、
+质检工具链与视觉渲染管线。
 
 ## 两条路线（30 秒了解）
 
@@ -50,6 +57,9 @@
 
 ## 许可
 
-- 基座 `vendor-ppt-master/`：**MIT**（Copyright (c) 2025-2026 Hugo He，原样保留）
-- 本地增量（`deltas/`、`docs/`、`tests/`）：吸收自外部 skill 的部分均为**原理重写**，
-  逐条登记在 `ABSORPTION-LEDGER.md`（含来源与许可处理）
+- **本仓库**：MIT，见 [`LICENSE`](LICENSE)（版权名待填入）
+- **基座** [`vendor-ppt-master/`](vendor-ppt-master/)：MIT，Copyright (c) 2025-2026 Hugo He，
+  来源 [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master)，**原样保留**
+- **第三方致谢与吸收声明**：见 [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md)
+  （8 个来源的名称 / 许可 / 吸收方式）
+- **吸收审计凭证**：逐条来源、改写方式与许可处理见 [`ABSORPTION-LEDGER.md`](ABSORPTION-LEDGER.md)

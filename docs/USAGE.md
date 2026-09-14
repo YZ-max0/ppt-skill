@@ -23,7 +23,7 @@
 
 ```powershell
 python <vendor>\scripts\project_manager.py init <项目名> `
-    --dir "C:\Users\EDY\AppData\Local\Temp\opencode\<工作目录>" `
+    --dir "C:\Users\<you>\AppData\Local\Temp\opencode\<工作目录>" `
     --format ppt169 --quick-generate
 ```
 
@@ -238,7 +238,7 @@ python deltas\render-preview\render_png.py "<pptx>" -o "<outdir>" [--width 1920 
 | **两步质检路径不同** | 占位符路径（template-fill）用 role 分组；自由设计路径用主标题通道 |
 | **同页检测已移除** | 自由设计路径不再检测同页非主标题漂移（止损取舍） |
 | **单一渲染器** | 仅 WPS COM 可用；LibreOffice 未安装 |
-| **图表是静态几何** | 数据变化需按 `v2/CONTRACT.md` 公式手工重算坐标；非 PowerPoit 数据图表 |
+| **图表是静态几何** | 数据变化需按 `v2/CONTRACT.md` 公式手工重算坐标；非 PowerPoint 数据图表 |
 | **视觉评审需人工** | 加密限制使自动化无法目视；contact sheet 需人在 Windows 上看 |
 | **无图片素材支持** | 骨架为文字/几何；图片页需自行扩展 |
 

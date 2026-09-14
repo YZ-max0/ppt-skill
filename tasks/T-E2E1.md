@@ -48,7 +48,7 @@ Director 轻量版 → base Quick 通道 → SVG 手写 → 导出 PPTX → D-2 
 ## 硬约束
 
 1. T-01 文本原样，不得偷换需求；页数 6-8 不得缩水
-2. vendor 零修改；产物全部进临时目录 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-e2e\`；repo 仅报告
+2. vendor 零修改；产物全部进临时目录 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-e2e\`；repo 仅报告
 3. Windows 侧 python；中文验证走 UTF-8 文件回读
 4. 只记录不修复（发现 vendor/D-2 问题 → 报告 + C-XXX，修复走后续卡）
 

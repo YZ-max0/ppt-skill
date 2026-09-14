@@ -73,8 +73,8 @@
 
 | 版本 | 全页 PNG | contact sheet |
 |---|---|---|
-| **t03（v1 原版）** | `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-render\t03\slide-01..21.png` | `...\ppt-render\t03\contact-sheet.png`（1770×1698） |
-| **t03-v2（增强版）** | `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-m2b\render-t03v2\slide-01..21.png` | `...\ppt-m2b\render-t03v2\contact-sheet.png`（1770×1698） |
+| **t03（v1 原版）** | `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-render\t03\slide-01..21.png` | `...\ppt-render\t03\contact-sheet.png`（1770×1698） |
+| **t03-v2（增强版）** | `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-m2b\render-t03v2\slide-01..21.png` | `...\ppt-m2b\render-t03v2\contact-sheet.png`（1770×1698） |
 
 ### 程序化视觉对照（唯一色数 = 视觉元素丰富度代理指标）
 
@@ -139,7 +139,7 @@
 
 | 项 | 原因 |
 |---|---|
-| **人工目视视觉效果** | TSD 加密（W-8）阻止 WSL 侧读图；本轮仅程序化对照（唯一色数 + 结构）。**需人类打开两张 contact sheet 目视对比** |
+| **人工目视视觉效果** | 端点透明加密（W-8）阻止 WSL 侧读图；本轮仅程序化对照（唯一色数 + 结构）。**需人类打开两张 contact sheet 目视对比** |
 | 投影环境下的深色页对比度 | 无投影设备；锚点页深色在偏色投影仪上可能对比度下降 |
 | 图表的数据准确性 | 图表为静态几何，数据来自 T-03 既有事实，但**坐标已手工计算**，未做自动化校验 |
 | 原生 PPTX 图表能力 | 本轮图表是矢量图形，非 PowerPoit 数据图表（`data-pptx-replace-with` 未启用） |
@@ -183,7 +183,7 @@
 | 红线 | 结果 |
 |---|---|
 | vendor 零修改 | ✅ `git diff --stat HEAD -- vendor-ppt-master/` 为空 |
-| PNG/PPTX 产物在临时目录 | ✅ 全在 `C:\Users\EDY\AppData\Local\Temp\opencode\{ppt-m2b,ppt-render}\`；repo 无产物 |
+| PNG/PPTX 产物在临时目录 | ✅ 全在 `C:\Users\<you>\AppData\Local\Temp\opencode\{ppt-m2b,ppt-render}\`；repo 无产物 |
 | repo 仅 v2 骨架 + 报告 | ✅ `deltas/layout-assets/v2/`（8 SVG + CONTRACT）+ 本报告 |
 | 图表数据来自 T-03 既有事实 | ✅ 80/40/20/12/8 万、45 万、1.8 年、三项指标——全部来自 P16/P17/P19 原稿 |
 | 语义色系统不破坏 | ✅ 仅用既有 5 色 + 一个同色系浅蓝 `#4A6FD4`（donut 次段） |

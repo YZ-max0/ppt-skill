@@ -8,11 +8,11 @@
 | 项 | 值 |
 |---|---|
 | 平台 | Windows（PowerShell 5.1）+ WSL 混合调用；git 只用 Windows git |
-| Python | **3.12.3**（`C:\Users\EDY\AppData\Local\Programs\Python\Python312\python.exe`） |
+| Python | **3.12.3**（`C:\Users\<you>\AppData\Local\Programs\Python\Python312\python.exe`） |
 | python-pptx | **1.0.2** |
 | lxml | **6.1.1** |
 | vendor | ppt-master 5.0.0（MIT） |
-| TSD 加密 | Windows 侧 python 透明解密正常（探针 `DECRYPT-OK`） |
+| 端点透明加密 | Windows 侧 python 透明解密正常（探针 `DECRYPT-OK`） |
 
 ## S1 · SVG → PPTX 导出链路
 
@@ -231,6 +231,6 @@ python D:\...\batch_validate.py <tmp>\empty-dir
 | 红线 | 结果 | 证据 |
 |---|---|---|
 | vendor 零 diff | ✅ | `git diff --stat HEAD -- vendor-ppt-master/` 为空（commit 后） |
-| 临时产物零进 repo | ✅ | 全部产物在 `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-smoke\`；repo 无 `.pptx`/`.svg` 新增 |
+| 临时产物零进 repo | ✅ | 全部产物在 `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-smoke\`；repo 无 `.pptx`/`.svg` 新增 |
 | 报告为唯一 repo 新增 | ✅ | `git status` 仅 `docs/smoke-report.md` |
 | 未做任何修复 | ✅ | 仅记录，未改 vendor 或 D-2 代码 |

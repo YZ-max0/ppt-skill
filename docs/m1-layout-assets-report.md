@@ -185,6 +185,6 @@ M1 测试集后续需求预判（T-02~T-06）：
 |---|---|
 | vendor 零修改 | ✅ `git diff --stat HEAD -- vendor-ppt-master/` 为空 |
 | repo 仅资产库 + 报告新增 | ✅ `deltas/layout-assets/v0/`（7 文件）+ `docs/m1-layout-assets-report.md` |
-| .pptx/导出物全在临时目录 | ✅ `C:\Users\EDY\AppData\Local\Temp\opencode\ppt-e2e\`；repo `*.pptx`=0 |
+| .pptx/导出物全在临时目录 | ✅ `C:\Users\<you>\AppData\Local\Temp\opencode\ppt-e2e\`；repo `*.pptx`=0 |
 | 占位符零残留 | ✅ 读回产物 `【` 计数 = **0**（卡内硬约束 3） |
 | 6 骨架零 blocking 入库 | ✅ `Fully passed: 6 (100%)`，`blocking: 0`，`introduced: 0` |
