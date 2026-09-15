@@ -4,7 +4,7 @@
 > 详细操作步骤见 [`USAGE.md`](USAGE.md)；环境注意见 [`windows-notes.md`](windows-notes.md)。
 
 本 Skill 提供**三档质量**。区别不在"做得更多"，而在**加了几道思考环节与校验门**。
-三档共用同一套骨架库（`deltas/layout-assets/`，24 个）与同一套导出链路。
+三档共用同一套骨架库（`deltas/layout-assets/`，29 个）与同一套导出链路。
 
 ---
 
@@ -145,7 +145,7 @@ python deltas\render-preview\render_png.py "<pptx>" -o "<输出目录>"
 
 | 限制 | 说明 |
 |---|---|
-| **不支持图片素材** | 24 个骨架均为文字 + 几何，无图片位 |
+| **图片位已支持** | v3 提供 3 个图片骨架（`image-hero`/`image-split`/`image-grid`）；素材需用户提供或程序生成（见 `docs/image-strategy.md`） |
 | **图表是静态 SVG** | 非 PowerPoint 原生数据图表；数据变化需按 `v2/CONTRACT.md` §2 公式手工重算坐标 |
 | **无动画/过渡设计** | 可另走 base 的 animations 能力 |
 | **单一渲染器** | 本机仅 WPS COM 可用（无 LibreOffice 备选） |
