@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】质询应答：数据质量投诉率为何不降反升</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="question-band" data-pptx-bounds="80 160 1120 110">
+    <rect x="80" y="160" width="1120" height="104" fill="#FFF3ED"/>
+    <rect x="80" y="160" width="6" height="104" fill="#FF6B35"/>
+    <text x="112" y="200" font-size="18" font-weight="700" fill="#FF6B35">质询</text>
+    <text x="112" y="238" font-size="24" font-weight="700" fill="#0A0A0A">【质询原文】二期上线后数据质量投诉率未下降，请说明原因与责任界定</text>
+  </g>
+  <g id="answer-col" data-pptx-bounds="80 290 540 340">
+    <rect x="80" y="290" width="540" height="340" fill="#F0F0EE"/>
+    <text x="112" y="336" font-size="24" font-weight="700" fill="#002FA7">应对</text>
+    <text x="112" y="380" font-size="18" fill="#0A0A0A">【应对要点一】投诉口径在二期扩围，纳入三家新业务线</text>
+    <text x="112" y="424" font-size="18" fill="#0A0A0A">【应对要点二】存量口径同比实际下降三成，扩围掩盖了降幅</text>
+    <text x="112" y="468" font-size="18" fill="#0A0A0A">【应对要点三】已建立口径冻结机制，三期起按可比口径发布</text>
+    <text x="112" y="512" font-size="18" fill="#0A0A0A">【应对要点四】质量问题归属已按数据源拆分到各业务线</text>
+    <text x="112" y="556" font-size="18" fill="#0A0A0A">【应对要点五】专项整改排期已纳入三季度考核</text>
+    <text x="112" y="600" font-size="18" font-weight="600" fill="#737373">【应对小结】问题真实存在，但主因是口径变化</text>
+  </g>
+  <g id="evidence-col" data-pptx-bounds="660 290 540 340">
+    <rect x="660" y="290" width="540" height="340" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+    <text x="692" y="336" font-size="24" font-weight="700" fill="#002FA7">证据</text>
+    <text x="692" y="380" font-size="18" fill="#0A0A0A">【证据一】同口径投诉率：1.8% → 1.2%（降三成）</text>
+    <text x="692" y="424" font-size="18" fill="#0A0A0A">【证据二】扩围新增业务线投诉占总量约六成</text>
+    <text x="692" y="468" font-size="18" fill="#0A0A0A">【证据三】口径变更记录与发布公告留存可查</text>
+    <text x="692" y="512" font-size="18" fill="#0A0A0A">【证据四】数据源归属清单已与三条业务线确认</text>
+    <text x="692" y="556" font-size="18" fill="#0A0A0A">【证据五】整改项与责任人对应表已挂项目看板</text>
+    <text x="692" y="600" font-size="18" font-weight="600" fill="#737373">【证据说明】以上数据取自项目结项文档与月度报表</text>
+  </g>
+</svg>

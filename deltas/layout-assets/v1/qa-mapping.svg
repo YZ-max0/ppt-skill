@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】五项质询与应答页对应关系</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <g id="qa-map" data-pptx-bounds="80 165 1120 450">
+    <rect x="80" y="165" width="1120" height="88" fill="#F0F0EE"/>
+    <text x="110" y="217" font-size="28" font-weight="700" fill="#002FA7">01</text>
+    <text x="190" y="213" font-size="22" font-weight="700" fill="#0A0A0A">【质询一摘要】数据质量投诉率为何不降反升</text>
+    <text x="1010" y="213" font-size="16" fill="#737373">【应答页一】P08</text>
+
+    <rect x="80" y="253" width="1120" height="88" fill="#FFFFFF"/>
+    <text x="110" y="305" font-size="28" font-weight="700" fill="#002FA7">02</text>
+    <text x="190" y="301" font-size="22" font-weight="700" fill="#0A0A0A">【质询二摘要】二期投入与产出的量化关系</text>
+    <text x="1010" y="301" font-size="16" fill="#737373">【应答页二】P09</text>
+
+    <rect x="80" y="341" width="1120" height="88" fill="#F0F0EE"/>
+    <text x="110" y="393" font-size="28" font-weight="700" fill="#002FA7">03</text>
+    <text x="190" y="389" font-size="22" font-weight="700" fill="#0A0A0A">【质询三摘要】与业务系统的重复建设问题</text>
+    <text x="1010" y="389" font-size="16" fill="#737373">【应答页三】P10</text>
+
+    <rect x="80" y="429" width="1120" height="88" fill="#FFFFFF"/>
+    <text x="110" y="481" font-size="28" font-weight="700" fill="#002FA7">04</text>
+    <text x="190" y="477" font-size="22" font-weight="700" fill="#0A0A0A">【质询四摘要】历史数据迁移的完整性与口径</text>
+    <text x="1010" y="477" font-size="16" fill="#737373">【应答页四】P11</text>
+
+    <rect x="80" y="517" width="1120" height="88" fill="#F0F0EE"/>
+    <text x="110" y="569" font-size="28" font-weight="700" fill="#002FA7">05</text>
+    <text x="190" y="565" font-size="22" font-weight="700" fill="#0A0A0A">【质询五摘要】三期是否应继续投入的判断依据</text>
+    <text x="1010" y="565" font-size="16" fill="#737373">【应答页五】P12</text>
+  </g>
+</svg>
