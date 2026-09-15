@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="cover" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#0A0A0A"/>
+  </g>
+  <!-- IMAGE: images/hero-16x9.png 16:9 fill -->
+  <g id="img-hero" data-pptx-bounds="0 0 1280 720">
+    <image href="../images/hero-16x9.png" x="0" y="0" width="1280" height="720"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="hero-overlay" data-pptx-bounds="0 468 1280 252">
+    <rect x="0" y="468" width="1280" height="252" fill="#0A0A0A" fill-opacity="0.68"/>
+    <text x="80" y="560" font-size="56" font-weight="700" fill="#FFFFFF">【主标题】一句话说清这张图要讲清楚的事</text>
+    <text x="80" y="612" font-size="24" fill="#E2E8F0">【副标题】补充背景或结论，控制在二十二字以内</text>
+    <text x="80" y="668" font-size="18" fill="#737373">【图片说明】配图来源、拍摄时间或数据出处</text>
+  </g>
+</svg>

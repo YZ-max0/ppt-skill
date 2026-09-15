@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】左图右文：用一张图承担核心论据</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <!-- IMAGE: images/split-4x3.png 4:3 fill -->
+  <g id="img-split" data-pptx-bounds="80 170 520 390">
+    <image href="../images/split-4x3.png" x="80" y="170" width="520" height="390"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="img-caption" data-pptx-bounds="80 575 520 85">
+    <text x="80" y="612" font-size="18" fill="#737373">【图片说明】配图来源、拍摄时间或数据出处</text>
+    <text x="80" y="644" font-size="16" fill="#737373">【说明补充】必要的口径注释，可留空</text>
+  </g>
+  <g id="text-col" data-pptx-bounds="660 170 540 480">
+    <text x="660" y="218" font-size="28" font-weight="700" fill="#002FA7">【栏目标题】四到八字</text>
+    <text x="660" y="286" font-size="22" font-weight="600" fill="#0A0A0A">【要点一标题】十二字以内的判断句</text>
+    <text x="660" y="322" font-size="16" fill="#737373"><tspan x="660" dy="0">【要点一说明】不超过二十八字的展开说明，</tspan><tspan x="660" dy="28">第二行承接上文，保持两行为限。</tspan></text>
+    <text x="660" y="424" font-size="22" font-weight="600" fill="#0A0A0A">【要点二标题】十二字以内的判断句</text>
+    <text x="660" y="460" font-size="16" fill="#737373"><tspan x="660" dy="0">【要点二说明】不超过二十八字的展开说明，</tspan><tspan x="660" dy="28">第二行承接上文，保持两行为限。</tspan></text>
+    <text x="660" y="562" font-size="22" font-weight="600" fill="#0A0A0A">【要点三标题】十二字以内的判断句</text>
+    <text x="660" y="598" font-size="16" fill="#737373"><tspan x="660" dy="0">【要点三说明】不超过二十八字的展开说明，</tspan><tspan x="660" dy="28">第二行承接上文，保持两行为限。</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     data-pptx-page-role="content" font-family="Microsoft YaHei, Arial, sans-serif">
+  <g id="page-bg" data-pptx-bounds="0 0 1280 720">
+    <rect width="1280" height="720" fill="#FFFFFF"/>
+  </g>
+  <g id="page-title" data-pptx-bounds="80 40 1120 100">
+    <text x="80" y="90" font-size="40" font-weight="700" fill="#0A0A0A">【页面标题】六张图并列：同规格可比，差异一眼可见</text>
+    <rect x="80" y="112" width="80" height="4" fill="#002FA7"/>
+  </g>
+  <!-- IMAGE: images/grid-1.png 4:3 fill -->
+  <g id="img-cell-1" data-pptx-bounds="174 150 284 213">
+    <image href="../images/grid-1x1.png" x="174" y="150" width="284" height="213"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="cell-note-1" data-pptx-bounds="174 368 284 52">
+    <text x="174" y="389" font-size="18" font-weight="600" fill="#0A0A0A">【图一标题】四到六字</text>
+    <text x="174" y="411" font-size="16" fill="#737373">【图一说明】十六字以内</text>
+  </g>
+  <!-- IMAGE: images/grid-2.png 4:3 fill -->
+  <g id="img-cell-2" data-pptx-bounds="498 150 284 213">
+    <image href="../images/grid-1x1.png" x="498" y="150" width="284" height="213"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="cell-note-2" data-pptx-bounds="498 368 284 52">
+    <text x="498" y="389" font-size="18" font-weight="600" fill="#0A0A0A">【图二标题】四到六字</text>
+    <text x="498" y="411" font-size="16" fill="#737373">【图二说明】十六字以内</text>
+  </g>
+  <!-- IMAGE: images/grid-3.png 4:3 fill -->
+  <g id="img-cell-3" data-pptx-bounds="822 150 284 213">
+    <image href="../images/grid-1x1.png" x="822" y="150" width="284" height="213"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="cell-note-3" data-pptx-bounds="822 368 284 52">
+    <text x="822" y="389" font-size="18" font-weight="600" fill="#0A0A0A">【图三标题】四到六字</text>
+    <text x="822" y="411" font-size="16" fill="#737373">【图三说明】十六字以内</text>
+  </g>
+  <!-- IMAGE: images/grid-4.png 4:3 fill -->
+  <g id="img-cell-4" data-pptx-bounds="174 431 284 213">
+    <image href="../images/grid-1x1.png" x="174" y="431" width="284" height="213"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="cell-note-4" data-pptx-bounds="174 650 284 52">
+    <text x="174" y="670" font-size="18" font-weight="600" fill="#0A0A0A">【图四标题】四到六字</text>
+    <text x="174" y="692" font-size="16" fill="#737373">【图四说明】十六字以内</text>
+  </g>
+  <!-- IMAGE: images/grid-5.png 4:3 fill -->
+  <g id="img-cell-5" data-pptx-bounds="498 431 284 213">
+    <image href="../images/grid-1x1.png" x="498" y="431" width="284" height="213"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="cell-note-5" data-pptx-bounds="498 650 284 52">
+    <text x="498" y="670" font-size="18" font-weight="600" fill="#0A0A0A">【图五标题】四到六字</text>
+    <text x="498" y="692" font-size="16" fill="#737373">【图五说明】十六字以内</text>
+  </g>
+  <!-- IMAGE: images/grid-6.png 4:3 fill -->
+  <g id="img-cell-6" data-pptx-bounds="822 431 284 213">
+    <image href="../images/grid-1x1.png" x="822" y="431" width="284" height="213"
+           preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="cell-note-6" data-pptx-bounds="822 650 284 52">
+    <text x="822" y="670" font-size="18" font-weight="600" fill="#0A0A0A">【图六标题】四到六字</text>
+    <text x="822" y="692" font-size="16" fill="#737373">【图六说明】十六字以内</text>
+  </g>
+</svg>
