@@ -34,7 +34,7 @@
 > **计时口径（诚实披露）**：A/B/B2 三份导演文档、图表扩展均为 agent 会话内产出，
 > wall-clock 不代表人类作者撰写同等内容的耗时。
 
-**产物**：`C:\Users\EDY\AppData\Local\Temp\opencode\t-e2e5\t05-bp_ppt169_20260914\exports\t05-bp_20260914_*.pptx`（repo 零产物）
+**产物**：`C:\Users\<you>\AppData\Local\Temp\opencode\t-e2e5\t05-bp_ppt169_20260914\exports\t05-bp_20260914_*.pptx`（repo 零产物）
 
 ---
 

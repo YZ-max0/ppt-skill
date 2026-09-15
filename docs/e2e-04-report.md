@@ -34,7 +34,7 @@
 > **计时口径（诚实披露）**：A 阶段、图表扩展与 25 页逐字稿均为 agent 会话内产出，
 > wall-clock 不代表人类作者撰写同等内容的耗时。
 
-**产物**：`C:\Users\EDY\AppData\Local\Temp\opencode\t-e2e4\t04-talk_ppt169_20260914\exports\t04-talk_20260914_180059.pptx`（repo 零产物）
+**产物**：`C:\Users\<you>\AppData\Local\Temp\opencode\t-e2e4\t04-talk_ppt169_20260914\exports\t04-talk_20260914_180059.pptx`（repo 零产物）
 
 ---
 

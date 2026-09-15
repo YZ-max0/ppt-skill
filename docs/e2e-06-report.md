@@ -36,7 +36,7 @@
 > **计时口径（诚实披露）**：A/B/B2/评审卡与新骨架均为 agent 会话内产出，
 > wall-clock 不代表人类作者撰写同等内容的耗时。
 
-**产物**：`C:\Users\EDY\AppData\Local\Temp\opencode\t-e2e6\t06-review_ppt169_20260915\exports\t06-review_20260915_*.pptx`（repo 零产物）
+**产物**：`C:\Users\<you>\AppData\Local\Temp\opencode\t-e2e6\t06-review_ppt169_20260915\exports\t06-review_20260915_*.pptx`（repo 零产物）
 
 ---
 

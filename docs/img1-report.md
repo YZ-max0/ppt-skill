@@ -37,9 +37,9 @@
 > **计时口径（诚实披露）**：契约研究、骨架撰写、策略文档均为 agent 会话内产出，
 > wall-clock 不代表人类作者耗时。
 
-**产物**：`C:\Users\EDY\AppData\Local\Temp\opencode\t-img1\e2e-img_ppt169_20260915\exports\*.pptx`
+**产物**：`C:\Users\<you>\AppData\Local\Temp\opencode\t-img1\e2e-img_ppt169_20260915\exports\*.pptx`
 **contact sheet（供指挥官读图）**：
-`C:\Users\EDY\AppData\Local\Temp\opencode\t-img1\e2e-img_ppt169_20260915\render\contact-sheet.png`（6 页）
+`C:\Users\<you>\AppData\Local\Temp\opencode\t-img1\e2e-img_ppt169_20260915\render\contact-sheet.png`（6 页）
 
 ---
 

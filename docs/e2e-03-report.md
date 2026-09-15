@@ -125,7 +125,7 @@ python <vendor>\scripts\svg_quality_checker.py <proj> --quick-generate --stage f
 | 数字呈现 | 优先图表/大字 | 图表 3 页 + 大字报 1 页 + 证据卡 1 页；正文页以要点短句呈现 | ✅ |
 | vendor 零修改 | 必须 | `git status` 无 `vendor-ppt-master/**`（见 §3） | ✅ |
 
-**产物**：`C:\Users\EDY\AppData\Local\Temp\opencode\t-e2e3\t02-review_ppt169_20260914\exports\t02-review_20260914_173207.pptx`（41 KB，14 slides，repo 零产物）
+**产物**：`C:\Users\<you>\AppData\Local\Temp\opencode\t-e2e3\t02-review_ppt169_20260914\exports\t02-review_20260914_173207.pptx`（41 KB，14 slides，repo 零产物）
 
 ---
 

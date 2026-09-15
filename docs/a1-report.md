@@ -34,7 +34,7 @@
 > wall-clock 不代表人类作者耗时。
 
 **contact sheet（供指挥官读图）**：
-`C:\Users\EDY\AppData\Local\Temp\opencode\rfinal-a1\g3_ppt169_20260915\render\contact-sheet.png`（6 页）
+`C:\Users\<you>\AppData\Local\Temp\opencode\rfinal-a1\g3_ppt169_20260915\render\contact-sheet.png`（6 页）
 
 ---
 
