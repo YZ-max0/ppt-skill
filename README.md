@@ -11,6 +11,9 @@
 基于 [ppt-master 5.0.0](vendor-ppt-master/)（MIT）基座，叠加导演工作流、版式骨架资产库、
 质检工具链与视觉渲染管线。
 
+> 🤖 **给 AI agent**：入口是 [`SKILL.md`](SKILL.md)（含路径纪律、加载顺序、路由表、执行纪律）。
+> 按 `AGENTS.md` 约定发现的 agent 会被转发到同一入口。
+
 ## 两条路线（30 秒了解）
 
 | 路线 | 适用 | 特点 |
@@ -44,6 +47,7 @@
 
 | 路径 | 内容 |
 |---|---|
+| `SKILL.md` · `AGENTS.md` | **AI agent 入口**（路径纪律 / 加载顺序 / 路由 / 纪律） |
 | `vendor-ppt-master/` | ppt-master 5.0.0 基座（MIT，**只读不改**） |
 | `deltas/intake-guide.md` | **发起引导协议**（二分入口 / 质量协议 / 4 原则 / 2 示例对话） |
 | `deltas/director.md` · `style-lock.md` · `presenter-mode.md` | 定制层：导演工作流 / 版式锁定 / 演讲者模式 |
